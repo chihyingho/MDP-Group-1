@@ -420,6 +420,10 @@ public class MainActivity extends AppCompatActivity {
         ImageButton rightButton = (ImageButton) findViewById(R.id.arrowRight);
         ImageButton leftButton = (ImageButton) findViewById(R.id.arrowLeft);
         ImageButton backButton = (ImageButton) findViewById(R.id.arrowBack);
+        ImageButton nEButton = (ImageButton) findViewById(R.id.arrowNE);
+        ImageButton sEButton = (ImageButton) findViewById(R.id.arrowSE);
+        ImageButton sWButton = (ImageButton) findViewById(R.id.arrowSW);
+        ImageButton nWButton = (ImageButton) findViewById(R.id.arrowNW);
 
         View.OnClickListener movementOnClickListener = new View.OnClickListener() {
             @Override
@@ -445,6 +449,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.arrowBack:
                         masterRobotMovement(Constants.DOWN);
                         instruction1 = "r";
+                        break;
+                    case R.id.arrowNE:
+                        masterRobotMovement(Constants.FRIGHT);
+                        instruction1 = "fr";
+                        break;
+                    case R.id.arrowSE:
+                        masterRobotMovement(Constants.BRIGHT);
+                        instruction1 = "br";
+                        break;
+                    case R.id.arrowSW:
+                        masterRobotMovement(Constants.BLEFT);
+                        instruction1 = "bl";
+                        break;
+                    case R.id.arrowNW:
+                        masterRobotMovement(Constants.FLEFT);
+                        instruction1 = "fl";
                         break;
                 }
 
@@ -484,6 +504,22 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.arrowBack:
                         longPress = Constants.DOWN;
                         instruction2 = "r";
+                        break;
+                    case R.id.arrowNE:
+                        longPress = Constants.FRIGHT;
+                        instruction2 = "fr";
+                        break;
+                    case R.id.arrowSE:
+                        longPress = Constants.BRIGHT;
+                        instruction2 = "br";
+                        break;
+                    case R.id.arrowSW:
+                        longPress = Constants.BLEFT;
+                        instruction2 = "bl";
+                        break;
+                    case R.id.arrowNW:
+                        longPress = Constants.FLEFT;
+                        instruction2 = "fl";
                         break;
                 }
                 if (Constants.connected) {
@@ -527,6 +563,22 @@ public class MainActivity extends AppCompatActivity {
         backButton.setOnLongClickListener(movementOnLongClickListener);
         backButton.setOnTouchListener(movementOnTouchListener);
 
+        nEButton.setOnClickListener(movementOnClickListener);
+        nEButton.setOnLongClickListener(movementOnLongClickListener);
+        nEButton.setOnTouchListener(movementOnTouchListener);
+
+        sEButton.setOnClickListener(movementOnClickListener);
+        sEButton.setOnLongClickListener(movementOnLongClickListener);
+        sEButton.setOnTouchListener(movementOnTouchListener);
+
+        sWButton.setOnClickListener(movementOnClickListener);
+        sWButton.setOnLongClickListener(movementOnLongClickListener);
+        sWButton.setOnTouchListener(movementOnTouchListener);
+
+        nWButton.setOnClickListener(movementOnClickListener);
+        nWButton.setOnLongClickListener(movementOnLongClickListener);
+        nWButton.setOnTouchListener(movementOnTouchListener);
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -543,6 +595,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case Constants.LEFT:
                         masterRobotMovement(Constants.LEFT);
+                        break;
+                    case Constants.FRIGHT:
+                        masterRobotMovement(Constants.FRIGHT);
+                        break;
+                    case Constants.BRIGHT:
+                        masterRobotMovement(Constants.BRIGHT);
+                        break;
+                    case Constants.BLEFT:
+                        masterRobotMovement(Constants.BLEFT);
+                        break;
+                    case Constants.FLEFT:
+                        masterRobotMovement(Constants.FLEFT);
                         break;
                     default:
                         System.out.println("somehow its still null for buttonpress");

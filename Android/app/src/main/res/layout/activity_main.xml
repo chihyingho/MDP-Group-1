@@ -110,15 +110,15 @@
             app:layout_constraintEnd_toEndOf="@+id/generator"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
-            app:layout_constraintTop_toBottomOf="@+id/generator"/>
+            app:layout_constraintTop_toBottomOf="@+id/generator" />
 
         <ImageButton
             android:id="@+id/arrowBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:layout_marginTop="20dp"
             android:clickable="true"
             android:focusable="true"
             android:maxHeight="50dp"
@@ -127,7 +127,7 @@
             app:layout_constraintEnd_toEndOf="@+id/generator"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
-            app:layout_constraintTop_toBottomOf="@+id/arrowForward"/>
+            app:layout_constraintTop_toBottomOf="@+id/arrowForward" />
 
         <ImageButton
             android:id="@+id/arrowLeft"
@@ -140,12 +140,12 @@
             android:maxWidth="50dp"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@+id/arrowBack"
             app:layout_constraintEnd_toStartOf="@+id/arrowForward"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
             app:layout_constraintTop_toTopOf="@+id/arrowForward"
-            app:layout_constraintBottom_toBottomOf="@+id/arrowBack" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <ImageButton
             android:id="@+id/arrowRight"
@@ -158,12 +158,84 @@
             android:maxWidth="50dp"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_right"
-            app:layout_constraintStart_toEndOf="@+id/arrowForward"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/arrowBack"
             app:layout_constraintEnd_toEndOf="@+id/generator"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/arrowForward"
             app:layout_constraintTop_toTopOf="@+id/arrowForward"
-            app:layout_constraintBottom_toBottomOf="@+id/arrowBack" />
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageButton
+            android:id="@+id/arrowNE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="12dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="45"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintBottom_toTopOf="@+id/arrowRight"
+            app:layout_constraintStart_toEndOf="@+id/arrowForward" />
+
+        <ImageButton
+            android:id="@+id/arrowSE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="9dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="135"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintStart_toEndOf="@+id/arrowBack"
+            app:layout_constraintTop_toBottomOf="@+id/arrowRight" />
+
+        <ImageButton
+            android:id="@+id/arrowSW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="11dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="225"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintEnd_toStartOf="@+id/arrowBack"
+            app:layout_constraintTop_toBottomOf="@+id/arrowLeft" />
+
+        <ImageButton
+            android:id="@+id/arrowNW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="315"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintBottom_toTopOf="@+id/arrowLeft"
+            app:layout_constraintEnd_toStartOf="@+id/arrowForward" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window"
