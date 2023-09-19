@@ -17,6 +17,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 public class BluetoothConnectionService extends IntentService {
@@ -107,6 +109,7 @@ public class BluetoothConnectionService extends IntentService {
                     // for ActivityCompat#requestPermissions for more details.
                 }
                 temp = myBluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(appName, myUUID);
+
                 Log.d(TAG, "AcceptThread: Setting up server using: " + myUUID);
 
             } catch (IOException e) {
@@ -275,9 +278,17 @@ public class BluetoothConnectionService extends IntentService {
                     // for ActivityCompat#requestPermissions for more details.
                 }
                 temp = myDevice.createRfcommSocketToServiceRecord(deviceUUID);
+                //Method m = myDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class});
+                //temp = (BluetoothSocket) m.invoke(myDevice, 5005);
             } catch (IOException e) {
                 Log.d(TAG, "ConnectThread: Could not create InsecureRFcommSocket " + e.getMessage());
-            }
+            }/* catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }*/
 
             mySocket = temp;
 
