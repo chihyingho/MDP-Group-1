@@ -419,6 +419,10 @@ public class MainActivity extends AppCompatActivity {
         ImageButton rightButton = (ImageButton) findViewById(R.id.arrowRight);
         ImageButton leftButton = (ImageButton) findViewById(R.id.arrowLeft);
         ImageButton backButton = (ImageButton) findViewById(R.id.arrowBack);
+        ImageButton nEButton = (ImageButton) findViewById(R.id.arrowNE);
+        ImageButton sEButton = (ImageButton) findViewById(R.id.arrowSE);
+        ImageButton sWButton = (ImageButton) findViewById(R.id.arrowSW);
+        ImageButton nWButton = (ImageButton) findViewById(R.id.arrowNW);
 
         View.OnClickListener movementOnClickListener = new View.OnClickListener() {
             @Override
@@ -430,20 +434,100 @@ public class MainActivity extends AppCompatActivity {
                 String instruction1 = "_";
                 switch (view.getId()) {
                     case R.id.arrowForward:
-                        masterRobotMovement(Constants.UP);
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.UP);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.LEFT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.DOWN);
+                        } else {
+                            masterRobotMovement(Constants.RIGHT);
+                        }
                         instruction1 = "f";
                         break;
                     case R.id.arrowRight:
-                        masterRobotMovement(Constants.RIGHT);
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.RIGHT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.UP);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.LEFT);
+                        } else {
+                            masterRobotMovement(Constants.DOWN);
+                        }
                         instruction1 = "sr";
                         break;
                     case R.id.arrowLeft:
-                        masterRobotMovement(Constants.LEFT);
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.LEFT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.DOWN);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.RIGHT);
+                        } else {
+                            masterRobotMovement(Constants.UP);
+                        }
                         instruction1 = "sl";
                         break;
                     case R.id.arrowBack:
-                        masterRobotMovement(Constants.DOWN);
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.DOWN);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.RIGHT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.UP);
+                        } else {
+                            masterRobotMovement(Constants.LEFT);
+                        }
                         instruction1 = "r";
+                        break;
+                    case R.id.arrowNE:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.FRIGHT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.FLEFT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.BLEFT);
+                        } else {
+                            masterRobotMovement(Constants.BRIGHT);
+                        }
+                        instruction1 = "fr";
+                        break;
+                    case R.id.arrowSE:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.BRIGHT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.FRIGHT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.FLEFT);
+                        } else {
+                            masterRobotMovement(Constants.BLEFT);
+                        }
+                        instruction1 = "br";
+                        break;
+                    case R.id.arrowSW:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.BLEFT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.BRIGHT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.FRIGHT);
+                        } else {
+                            masterRobotMovement(Constants.FLEFT);
+                        }
+                        instruction1 = "bl";
+                        break;
+                    case R.id.arrowNW:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            masterRobotMovement(Constants.FLEFT);
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            masterRobotMovement(Constants.BLEFT);
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            masterRobotMovement(Constants.BRIGHT);
+                        } else {
+                            masterRobotMovement(Constants.FRIGHT);
+                        }
+                        instruction1 = "fl";
                         break;
                 }
 
@@ -469,20 +553,100 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (view.getId()) {
                     case R.id.arrowForward:
-                        longPress = Constants.UP;
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.UP;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.LEFT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.DOWN;
+                        } else {
+                            longPress = Constants.RIGHT;
+                        }
                         instruction2 = "f";
                         break;
                     case R.id.arrowRight:
-                        longPress = Constants.RIGHT;
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.RIGHT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.UP;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.LEFT;
+                        } else {
+                            longPress = Constants.DOWN;
+                        }
                         instruction2 = "sr";
                         break;
                     case R.id.arrowLeft:
-                        longPress = Constants.LEFT;
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.LEFT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.DOWN;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.RIGHT;
+                        } else {
+                            longPress = Constants.UP;
+                        }
                         instruction2 = "sl";
                         break;
                     case R.id.arrowBack:
-                        longPress = Constants.DOWN;
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.DOWN;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.RIGHT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.UP;
+                        } else {
+                            longPress = Constants.LEFT;
+                        }
                         instruction2 = "r";
+                        break;
+                    case R.id.arrowNE:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.FRIGHT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.FLEFT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.BLEFT;
+                        } else {
+                            longPress = Constants.BRIGHT;
+                        }
+                        instruction2 = "fr";
+                        break;
+                    case R.id.arrowSE:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.BRIGHT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.FRIGHT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.FLEFT;
+                        } else {
+                            longPress = Constants.BLEFT;
+                        }
+                        instruction2 = "br";
+                        break;
+                    case R.id.arrowSW:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.BLEFT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.BRIGHT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.FRIGHT;
+                        } else {
+                            longPress = Constants.FLEFT;
+                        }
+                        instruction2 = "bl";
+                        break;
+                    case R.id.arrowNW:
+                        if (map.getRobotFacing() == Constants.NORTH) {
+                            longPress = Constants.FLEFT;
+                        } else if (map.getRobotFacing() == Constants.EAST) {
+                            longPress = Constants.BLEFT;
+                        } else if (map.getRobotFacing() == Constants.SOUTH) {
+                            longPress = Constants.BRIGHT;
+                        } else {
+                            longPress = Constants.FRIGHT;
+                        }
+                        instruction2 = "fl";
                         break;
                 }
                 if (Constants.connected) {
@@ -526,6 +690,22 @@ public class MainActivity extends AppCompatActivity {
         backButton.setOnLongClickListener(movementOnLongClickListener);
         backButton.setOnTouchListener(movementOnTouchListener);
 
+        nEButton.setOnClickListener(movementOnClickListener);
+        nEButton.setOnLongClickListener(movementOnLongClickListener);
+        nEButton.setOnTouchListener(movementOnTouchListener);
+
+        sEButton.setOnClickListener(movementOnClickListener);
+        sEButton.setOnLongClickListener(movementOnLongClickListener);
+        sEButton.setOnTouchListener(movementOnTouchListener);
+
+        sWButton.setOnClickListener(movementOnClickListener);
+        sWButton.setOnLongClickListener(movementOnLongClickListener);
+        sWButton.setOnTouchListener(movementOnTouchListener);
+
+        nWButton.setOnClickListener(movementOnClickListener);
+        nWButton.setOnLongClickListener(movementOnLongClickListener);
+        nWButton.setOnTouchListener(movementOnTouchListener);
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -543,8 +723,20 @@ public class MainActivity extends AppCompatActivity {
                     case Constants.LEFT:
                         masterRobotMovement(Constants.LEFT);
                         break;
+                    case Constants.FRIGHT:
+                        masterRobotMovement(Constants.FRIGHT);
+                        break;
+                    case Constants.BRIGHT:
+                        masterRobotMovement(Constants.BRIGHT);
+                        break;
+                    case Constants.BLEFT:
+                        masterRobotMovement(Constants.BLEFT);
+                        break;
+                    case Constants.FLEFT:
+                        masterRobotMovement(Constants.FLEFT);
+                        break;
                     default:
-                        System.out.println("somehow its still null for buttonpress");
+                        System.out.println("somehow its still null for button press");
                 }
                 handler.postDelayed(runnable, 100);
             }
@@ -823,10 +1015,8 @@ public class MainActivity extends AppCompatActivity {
                             facing = "W";
                         }
                         break;
-
                 }
                 map.generateObstacleInformationTableRows(obstacleInformationTable);
-
                 System.out.println(String.format("obstacleNum %d", obstacleNumber));
                 int[] currentColRow = map.getColRowFromXY(obstacleGroup.getX(), obstacleGroup.getY(), map.getLeft(), map.getTop());
 

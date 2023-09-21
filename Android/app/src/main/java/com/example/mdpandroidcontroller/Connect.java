@@ -554,6 +554,7 @@ public class Connect extends AppCompatActivity {
     private final BroadcastReceiver discoveryStartedBroadcastReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
+            checkBTPermission();
 
             if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED)) {
 
@@ -735,20 +736,23 @@ public class Connect extends AppCompatActivity {
     /*
      Check BT permission in manifest (For Start Discovery)
  */
-    /*private void checkBTPermission() {
+    private void checkBTPermission() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION);
+            int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
             permissionCheck += ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+            permissionCheck += ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH);
+            permissionCheck += ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN);
+            permissionCheck += ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT);
+            permissionCheck += ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADVERTISE);
             if (permissionCheck != 0) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_ADVERTISE}, 1001);
             }
         } else {
             Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
 
         }
-    }*/
+    }
 
 
     /* START DISCOVERING OTHER DEVICES */

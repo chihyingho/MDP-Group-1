@@ -19,6 +19,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 public class MapArena extends View { //implements Serializable
@@ -269,6 +270,7 @@ public class MapArena extends View { //implements Serializable
         int[] oldCoord = this.getOldRobotCoord();
 
         int transX = 0, transY = 0;
+        int prev0 = tempCoord[0], prev1 = tempCoord[1];
 
         oldFacing = convertFacingToIndex(getRobotFacing());
         switch( this.getRobotMovement()) {
@@ -307,6 +309,26 @@ public class MapArena extends View { //implements Serializable
                 setRobotFacing(robotFacingEnum[newFacing]);
 
                 break;
+            case Constants.FRIGHT:
+                // Includes check for end of the grid
+                transX = 1;
+                transY = 1;
+                break;
+            case Constants.FLEFT:
+                // Includes check for end of the grid
+                transX = -1;
+                transY = 1;
+                break;
+            case Constants.BRIGHT:
+                // Includes check for end of the grid
+                transX = 1;
+                transY = -1;
+                break;
+            case Constants.BLEFT:
+                // Includes check for end of the grid
+                transX = -1;
+                transY = -1;
+                break;
             default:
                 System.out.println("Error in moveRobot() direction input");
                 break;
@@ -339,15 +361,37 @@ public class MapArena extends View { //implements Serializable
 
 
         // CHECKS OUT OF BOUNDS
-        if (tempCoord[0] < 1) {
-            tempCoord[0] = Math.max(tempCoord[0],1);
-        } else {
-            tempCoord[0] = Math.min(tempCoord[0],COL-2);
+        if (Objects.equals(this.getRobotMovement(), Constants.FRIGHT) || Objects.equals(this.getRobotMovement(), Constants.FLEFT) || Objects.equals(this.getRobotMovement(), Constants.BRIGHT) || Objects.equals(this.getRobotMovement(), Constants.BLEFT)){
+            if (tempCoord[0] < 1) {
+                tempCoord[0] = 1;
+                tempCoord[1] = prev1;
+            } else if (tempCoord[0] > COL-2) {
+                tempCoord[0] = Math.min(tempCoord[0],COL-2);
+                tempCoord[1] = prev1;
+            } else{
+                tempCoord[0] = Math.min(tempCoord[0],COL-2);
+            }
+            if (tempCoord[1] < 1) {
+                tempCoord[1] = 1;
+                tempCoord[0] = prev0;
+            } else if (tempCoord[1] > ROW-2){
+                tempCoord[1] = Math.min(tempCoord[1],ROW-2);
+                tempCoord[0] = prev0;
+            } else{
+                tempCoord[1] = Math.min(tempCoord[1],ROW-2);
+            }
         }
-        if (tempCoord[1] < 1) {
-            tempCoord[1] = Math.max(tempCoord[1],1);
-        } else {
-            tempCoord[1] = Math.min(tempCoord[1],ROW-2);
+        else{
+            if (tempCoord[0] < 1) {
+                tempCoord[0] = Math.max(tempCoord[0],1);
+            } else {
+                tempCoord[0] = Math.min(tempCoord[0],COL-2);
+            }
+            if (tempCoord[1] < 1) {
+                tempCoord[1] = Math.max(tempCoord[1],1);
+            } else {
+                tempCoord[1] = Math.min(tempCoord[1],ROW-2);
+            }
         }
 
         // set oldcoord wont happen as of now - useless btw

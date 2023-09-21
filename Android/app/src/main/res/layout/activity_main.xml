@@ -110,15 +110,15 @@
             app:layout_constraintEnd_toEndOf="@+id/generator"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
-            app:layout_constraintTop_toBottomOf="@+id/generator"/>
+            app:layout_constraintTop_toBottomOf="@+id/generator" />
 
         <ImageButton
             android:id="@+id/arrowBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:layout_marginTop="20dp"
             android:clickable="true"
             android:focusable="true"
             android:maxHeight="50dp"
@@ -127,7 +127,7 @@
             app:layout_constraintEnd_toEndOf="@+id/generator"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
-            app:layout_constraintTop_toBottomOf="@+id/arrowForward"/>
+            app:layout_constraintTop_toBottomOf="@+id/arrowForward" />
 
         <ImageButton
             android:id="@+id/arrowLeft"
@@ -140,12 +140,12 @@
             android:maxWidth="50dp"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@+id/arrowBack"
             app:layout_constraintEnd_toStartOf="@+id/arrowForward"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
             app:layout_constraintTop_toTopOf="@+id/arrowForward"
-            app:layout_constraintBottom_toBottomOf="@+id/arrowBack" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <ImageButton
             android:id="@+id/arrowRight"
@@ -158,12 +158,84 @@
             android:maxWidth="50dp"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_right"
-            app:layout_constraintStart_toEndOf="@+id/arrowForward"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintBottom_toBottomOf="@+id/arrowBack"
             app:layout_constraintEnd_toEndOf="@+id/generator"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/arrowForward"
             app:layout_constraintTop_toTopOf="@+id/arrowForward"
-            app:layout_constraintBottom_toBottomOf="@+id/arrowBack" />
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageButton
+            android:id="@+id/arrowNE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="12dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="45"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintBottom_toTopOf="@+id/arrowRight"
+            app:layout_constraintStart_toEndOf="@+id/arrowForward" />
+
+        <ImageButton
+            android:id="@+id/arrowSE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="9dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="135"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintStart_toEndOf="@+id/arrowBack"
+            app:layout_constraintTop_toBottomOf="@+id/arrowRight" />
+
+        <ImageButton
+            android:id="@+id/arrowSW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="11dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="225"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintEnd_toStartOf="@+id/arrowBack"
+            app:layout_constraintTop_toBottomOf="@+id/arrowLeft" />
+
+        <ImageButton
+            android:id="@+id/arrowNW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="40dp"
+            android:maxHeight="40dp"
+            android:rotation="315"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pixelated_arrow_up"
+            app:layout_constraintBottom_toTopOf="@+id/arrowLeft"
+            app:layout_constraintEnd_toStartOf="@+id/arrowForward" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window"
@@ -533,29 +605,29 @@
                 <TextView
                     android:layout_weight="1"
                     android:background="#000000"
-                    app:fontFamily="@font/main_font"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="No."
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/main_font" />
 
                 <TextView
                     android:layout_weight="1"
                     android:background="#000000"
                     android:gravity="center"
-                    app:fontFamily="@font/main_font"
                     android:padding="5dip"
                     android:text="Col"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/main_font" />
 
                 <TextView
                     android:layout_weight="1"
                     android:background="#000000"
                     android:gravity="center"
-                    app:fontFamily="@font/main_font"
                     android:padding="5dip"
                     android:text="Row"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/main_font" />
 
                 <TextView
                     android:layout_weight="1"
@@ -563,17 +635,17 @@
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="Face"
-                    app:fontFamily="@font/main_font"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/main_font" />
 
                 <TextView
                     android:layout_weight="1"
                     android:background="#000000"
-                    app:fontFamily="@font/main_font"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="X"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/main_font" />
 
             </TableRow>
         </TableLayout>
@@ -582,13 +654,12 @@
             android:id="@+id/btnTableLayout"
             android:layout_width="570dp"
             android:layout_height="90dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="189dp"
             android:background="@drawable/roundedbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.98"> <!-- stretch the second column of the layout-->
+            app:layout_constraintTop_toBottomOf="@+id/obstacleInformation"> <!-- stretch the second column of the layout-->
 
             <!-- new first row of the table layout-->
             <TableRow
@@ -681,15 +752,16 @@
                 <!-- first element of the row-->
                 <TextView
                     android:id="@+id/connect_Text"
-                    android:layout_width="100dp"
-                    app:fontFamily="@font/main_font"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
                     android:text="Bluetooth"
                     android:textAlignment="center"
                     android:textColor="#000"
                     android:textSize="12sp"
+                    app:fontFamily="@font/main_font"
                     app:layout_anchorGravity="center" />
+
                 <TextView
                     android:id="@+id/reset_Text"
                     android:layout_width="100dp"
@@ -697,10 +769,11 @@
                     android:layout_marginStart="12dp"
                     android:text="Reset"
                     android:textAlignment="center"
-                    app:fontFamily="@font/main_font"
                     android:textColor="#000"
                     android:textSize="12sp"
+                    app:fontFamily="@font/main_font"
                     app:layout_anchorGravity="center" />
+
                 <TextView
                     android:id="@+id/robot_Text"
                     android:layout_width="100dp"
@@ -708,10 +781,11 @@
                     android:layout_marginStart="12dp"
                     android:text="Generate"
                     android:textAlignment="center"
-                    app:fontFamily="@font/main_font"
                     android:textColor="#000"
                     android:textSize="12sp"
+                    app:fontFamily="@font/main_font"
                     app:layout_anchorGravity="center" />
+
                 <TextView
                     android:id="@+id/path_Text"
                     android:layout_width="100dp"
@@ -720,19 +794,20 @@
                     android:text="Path"
                     android:textAlignment="center"
                     android:textColor="#000"
-                    app:fontFamily="@font/main_font"
                     android:textSize="12sp"
+                    app:fontFamily="@font/main_font"
                     app:layout_anchorGravity="center" />
+
                 <TextView
                     android:id="@+id/start_Text"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    app:fontFamily="@font/main_font"
                     android:layout_marginStart="12dp"
                     android:text="Start"
                     android:textAlignment="center"
                     android:textColor="#000"
                     android:textSize="12sp"
+                    app:fontFamily="@font/main_font"
                     app:layout_anchorGravity="center" />
 
             </TableRow>

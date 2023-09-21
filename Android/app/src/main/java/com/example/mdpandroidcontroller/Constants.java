@@ -28,6 +28,14 @@ public class Constants {
     public static final String DOWN = "Down";
     public static final String LEFT = "Left";
     public static final String RIGHT = "Right";
+
+    public static final String FRIGHT = "FRight";
+
+    public static final String FLEFT = "FLeft";
+
+    public static final String BRIGHT = "BRight";
+
+    public static final String BLEFT = "BLeft";
     public static final String NORTH = "N";
     public static final String SOUTH = "S";
     public static final String EAST = "E";
