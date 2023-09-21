@@ -133,20 +133,48 @@ public class MapArena extends View { //implements Serializable
             int xCoordinate = obstacleCoordinates[0];
             int yCoordinate = obstacleCoordinates[1];
             TextView xCoordinateText = new TextView(this.getContext());
-            xCoordinateText.setText(String.valueOf(xCoordinate-1));
+            xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTextColor(Color.WHITE);
             xCoordinateText.setTypeface(mainFont);
             xCoordinateText.setTextSize(15);
             TextView yCoordinateText = new TextView(this.getContext());
-            yCoordinateText.setText(String.valueOf(19-yCoordinate));
+            yCoordinateText.setText(String.valueOf(yCoordinate));
             yCoordinateText.setTextColor(Color.WHITE);
             yCoordinateText.setTextSize(15);
             yCoordinateText.setTypeface(mainFont);
+            TextView faceText = new TextView(this.getContext());
+            faceText.setText(getTargetFaceDisplayString(obstacleDetails.getObstacleFace()));
+            faceText.setTextColor(Color.WHITE);
+            faceText.setTextSize(15);
+            faceText.setTypeface(mainFont);
             tableRow.addView(obstacleNumberText);
             tableRow.addView(xCoordinateText);
             tableRow.addView(yCoordinateText);
+            tableRow.addView(faceText);
             obstacleInformationTable.addView(tableRow);
         });
+    }
+
+    private String getTargetFaceDisplayString(ObstacleDetails.ObstacleFace location) {
+        String displayString = new String();
+        switch (location) {
+            case EAST:
+                displayString = "E";
+                break;
+            case WEST:
+                displayString = "W";
+                break;
+            case NORTH:
+                displayString = "N";
+                break;
+            case SOUTH:
+                displayString = "S";
+                break;
+            case UNKNOWN:
+                displayString = "Unknown";
+                break;
+        }
+        return displayString;
     }
 
     public void highlightCell(int mapXCoordinate, int mapYCoordinate) {
@@ -405,7 +433,7 @@ public class MapArena extends View { //implements Serializable
         return new int[]{column, row};
     }
 
-    public int[] updateObstacleOnBoard(int obstacleNumber, int x, int y) {
+    public void insertNewObstacleIntoArena(int obstacleNumber, int x, int y) {
         int column = (int) Math.floor(x / cellSize);
         int row = (int) Math.floor(y / cellSize);
 
@@ -422,12 +450,49 @@ public class MapArena extends View { //implements Serializable
         System.out.println(String.format("Added obstacle at X: %d Y: %d", column, row));
         setObstacleCoord(new int[] {column, row});
         ObstacleDetails newObstacleDetails = new ObstacleDetails();
-        newObstacleDetails.setCoordinates(new int[] {column, row});
+        newObstacleDetails.setCoordinates(new int[] {column-1, convertRow(row)-1});
         obstacleInformation.put(obstacleNumber, newObstacleDetails);
+    }
+
+    public int[] getObstacleCoordinates(int obstacleNumber) {
+        ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
+        return obstacle.getCoordinates();
+    }
+
+    public int[] calculateCoordinates(int x, int y) {
+        int column = (int) Math.floor(x / cellSize);
+        int row = (int) Math.floor(y / cellSize);
+
+        if (column < 1) {
+            column = Math.max(column,0);
+        } else {
+            column = Math.min(column,COL);
+        }
+        if (row< 1) {
+            row = Math.max(row,0);
+        } else {
+            row = Math.min(row,ROW-1);
+        }
         int[] newObstacleDrag= {(int) (column * cellSize), (int) (row * cellSize), column-1, convertRow(row)-1};
-
         return newObstacleDrag;
+    }
 
+    public void updateObstacleCoordinatesInArena(int obstacleNumber, int x, int y) {
+        int column = (int) Math.floor(x / cellSize);
+        int row = (int) Math.floor(y / cellSize);
+
+        if (column < 1) {
+            column = Math.max(column,0);
+        } else {
+            column = Math.min(column,COL);
+        }
+        if (row< 1) {
+            row = Math.max(row,0);
+        } else {
+            row = Math.min(row,ROW-1);
+        }
+        ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
+        obstacle.setCoordinates(new int[] {column, row});
     }
 
     /**
@@ -531,7 +596,6 @@ public class MapArena extends View { //implements Serializable
                 cells[x][y].setType("unexplored");
     }
 
-
     private void setCellSize(float cellSize) {
         MapArena.cellSize = cellSize;
     }
@@ -540,6 +604,10 @@ public class MapArena extends View { //implements Serializable
         obstacleCoord.add(coordinates);
     }
 
+    public void updateTargetLocation(int obstacleNumber, ObstacleDetails.ObstacleFace location) {
+        ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
+        obstacle.setObstacleFace(location);
+    }
 
     /**
      * does the actual removing
@@ -559,11 +627,17 @@ public class MapArena extends View { //implements Serializable
         //printObstacleCoord();
     }
 
+    public boolean obstacleInMap(int obstacleNumber) {
+        return obstacleInformation.containsKey(obstacleNumber);
+    }
     public void removeObstacle(int obstacleNumber) {
         System.out.println("removeObstacle was called");
         ObstacleDetails obstacleDetails = obstacleInformation.get(obstacleNumber);
         System.out.println("Obstacle Number:");
         System.out.println(obstacleNumber);
+        // obstacleDetails is null
+        // why is removeObstacle called in the first place?
+        // Did I remember to add the first obstacle?
         int[] obstacleCoordinates = obstacleDetails.getCoordinates();
         System.out.println(String.format("X: %d, Y: %d", obstacleCoordinates[0], obstacleCoordinates[1]));
         cells[obstacleCoordinates[0]][obstacleCoordinates[1]].setType("unexplored");

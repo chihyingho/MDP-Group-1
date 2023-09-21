@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="35dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +80,8 @@
             android:id="@+id/robotcar"
             android:layout_width="138px"
             android:layout_height="138px"
-            android:background="#5FB6F3"
-            android:src="@drawable/robot"
+            android:background="#000000"
+            android:src="@drawable/pacman"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -242,7 +242,6 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="32dp"
-            android:background="@drawable/rectangle_background"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -256,6 +255,8 @@
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:text="North"
+                android:fontFamily="@font/main_font"
+                android:textColor="#000000"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -267,6 +268,8 @@
                 android:layout_marginRight="10dp"
                 android:padding="8dp"
                 android:text="East"
+                android:fontFamily="@font/main_font"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -278,6 +281,8 @@
                 android:layout_marginBottom="10dp"
                 android:padding="5dp"
                 android:text="South"
+                android:fontFamily="@font/main_font"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -289,34 +294,12 @@
                 android:layout_marginLeft="10dp"
                 android:padding="8dp"
                 android:text="West"
+                android:fontFamily="@font/main_font"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/obstacleFaceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center_horizontal|top"
-                android:text="@string/obstacle_face_text"
-                app:fontFamily="@font/main_font"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/face_south"
-                app:layout_constraintEnd_toStartOf="@+id/face_east"
-                app:layout_constraintStart_toEndOf="@+id/face_west"
-                app:layout_constraintTop_toBottomOf="@+id/obstacleFaceText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
