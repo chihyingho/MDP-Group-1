@@ -1372,14 +1372,14 @@ public class MainActivity extends AppCompatActivity {
         ImageView newObstacleBox = new ImageView(this);
         newObstacleBox.setId(View.generateViewId());
         newObstacleBox.setTag(obstacleNumber);
-        newObstacleBox.setImageResource(R.drawable.obstacle);
+        newObstacleBox.setImageResource(R.drawable.blue_obstacle);
         ConstraintLayout.LayoutParams boxParams = new ConstraintLayout.LayoutParams(obstacleLength, obstacleLength);
         newObstacleBox.setLayoutParams(boxParams);
         // Create the second ImageView
         ImageView newObstacleFace = new ImageView(this);
         newObstacleFace.setId(View.generateViewId()); // Generate a unique ID for the view
         newObstacleFace.setTag(obstacleNumber);
-        newObstacleFace.setImageResource(R.drawable.obstacle_face);
+        newObstacleFace.setImageResource(R.drawable.blue_obstacle_face);
         ConstraintLayout.LayoutParams faceParams = new ConstraintLayout.LayoutParams(obstacleLength, obstacleLength);
         newObstacleFace.setLayoutParams(faceParams);
         newObstacleFace.setVisibility(View.INVISIBLE);
