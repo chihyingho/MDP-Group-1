@@ -583,11 +583,17 @@ public class MapArena extends View { //implements Serializable
         //printObstacleCoord();
     }
 
+    public boolean obstacleInMap(int obstacleNumber) {
+        return obstacleInformation.containsKey(obstacleNumber);
+    }
     public void removeObstacle(int obstacleNumber) {
         System.out.println("removeObstacle was called");
         ObstacleDetails obstacleDetails = obstacleInformation.get(obstacleNumber);
         System.out.println("Obstacle Number:");
         System.out.println(obstacleNumber);
+        // obstacleDetails is null
+        // why is removeObstacle called in the first place?
+        // Did I remember to add the first obstacle?
         int[] obstacleCoordinates = obstacleDetails.getCoordinates();
         System.out.println(String.format("X: %d, Y: %d", obstacleCoordinates[0], obstacleCoordinates[1]));
         cells[obstacleCoordinates[0]][obstacleCoordinates[1]].setType("unexplored");

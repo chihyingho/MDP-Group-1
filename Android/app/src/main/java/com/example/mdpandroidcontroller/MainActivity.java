@@ -1000,10 +1000,7 @@ public class MainActivity extends AppCompatActivity {
                 if (event.getAction() == DragEvent.ACTION_DROP) {
                     // If obstacle released outside map
                     if (x < mapCoord[0] || x > mapCoord[0] + mapWidth || y < mapCoord[1] || y > mapCoord[1] + mapHeight) {
-
-                        //System.out.println("out of map");
                         ConstraintLayout curObstacleGrp = (ConstraintLayout) event.getLocalState();
-                        System.out.println("Removed obstacle");
                         Object tag = curObstacleGrp.getTag();
                         int obstacleNumber = -1;
                         if (tag instanceof String) {
@@ -1013,8 +1010,7 @@ public class MainActivity extends AppCompatActivity {
                             int tagInteger = (int) tag;
                             obstacleNumber = tagInteger;
                         }
-                        // Check if obstacle was previously already in the map (in of map to out of map)
-                        if (pastX >= mapCoord[0] && pastX <= mapCoord[0] + mapWidth && pastY >= mapCoord[1] && pastY <= mapCoord[1] + mapHeight) {
+                        if (map.obstacleInMap(obstacleNumber)) {
                             parentView.removeView(curObstacleGrp);
                             map.removeObstacle(obstacleNumber);
                             map.generateObstacleInformationTableRows(obstacleInformationTable);
