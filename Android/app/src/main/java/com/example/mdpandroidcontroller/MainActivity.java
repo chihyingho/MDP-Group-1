@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
     // this one is for constraint
     private Map <Integer, ConstraintLayout> obstacleViews = new HashMap<>(); // cant be static!! - COS ITS REGENRATED ALL THE TIME - change eventually.
     private Map <Integer, ImageView> obstacleFaceViews2 = new HashMap<>();
-    private List<TextView> obstacleTextViews = new ArrayList<>();
+    private Map <Integer, TextView> obstacleTextViews = new HashMap<>();
     private List<ImageView> obstacleBoxViews = new ArrayList<>();
 
     boolean connectedState = false;
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
         obstacleViews.put(1, initialObstacleGrp);
         obstacleBoxViews.add(initialObstacleBox);
         obstacleFaceViews2.put(1, initialObstacleFace);
-        obstacleTextViews.add(initialObstacleId);
+        obstacleTextViews.put(1, initialObstacleId);
 
         //TEXTVIEWS
         outputNotifView = (TextView) findViewById(R.id.notifications);
@@ -831,11 +831,9 @@ public class MainActivity extends AppCompatActivity {
                 int[] currentColRow = map.getColRowFromXY(obstacleGroup.getX(), obstacleGroup.getY(), map.getLeft(), map.getTop());
 
                 //FOR CHECKLIST
-                //outputNotif = String.format("Facing: %s, Col: %d, Row: %d\n", facing, currentColRow[0], currentColRow[1]);
-                outputNotif = String.format("Obstacle: %d, Facing: %s", obstacleNumber, facing);
+                int[] obstacleCoordinates = map.getObstacleCoordinates(obstacleNumber);
+                outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d, Facing: %s", obstacleNumber, obstacleCoordinates[0], obstacleCoordinates[1], facing);
                 if (!facing.equals("error")) {
-                    System.out.printf(outputNotif);
-                    System.out.println();
                     outputNotifView.setText(outputNotif);
 
                     //SEND VALUE
@@ -936,12 +934,10 @@ public class MainActivity extends AppCompatActivity {
                         int[] newObstCoordColRow = map.calculateCoordinates(x, y);
 
                         System.out.println("Notification values:");
-                        // This works fine
                         int col = newObstCoordColRow[2];
                         int row = newObstCoordColRow[3];
                         outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", obstacleNumber, col, row);
-                        System.out.printf(outputNotif);
-                        System.out.println();
+                        System.out.println(outputNotif);
                         outputNotifView.setText(outputNotif);
 
                         //others
@@ -1109,18 +1105,15 @@ public class MainActivity extends AppCompatActivity {
             display = display + instructionList.get(1);
             outputNotifView.setText(display);
         } else if (prefix.equals("TARGET")) {
-            // need to add check?
-            int targetObst = Integer.parseInt(instructionList.get(1));
+            int obstacleNumber = Integer.parseInt(instructionList.get(1));
             String targetID = instructionList.get(2);
-            TextView target = obstacleTextViews.get(targetObst - 1);
-            target.setText(targetID);
-            target.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-
+            TextView targetTextView = obstacleTextViews.get(obstacleNumber);
+            targetTextView.setText(targetID);
+            targetTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         } else if (prefix.equals("ROBOT")) {
             //SET A MAX AND MIN!!! -- 8 feb
             int col = Integer.parseInt(instructionList.get(1));
             int row = Integer.parseInt(instructionList.get(2));
-
             if (col < 1) {
                 col = Math.max(col, 1);
             } else {
@@ -1133,11 +1126,9 @@ public class MainActivity extends AppCompatActivity {
             }
             String face = instructionList.get(3);
             robot.setVisibility(View.VISIBLE);
-
             map.setOldRobotCoord(map.getCurCoord()[0], map.getCurCoord()[1]); // create tracks
             int[] newCoord = new int[]{col, row};
             map.setCurCoord(newCoord);
-
             rotation = map.convertFacingToRotation(face);
             map.saveFacingWithRotation(rotation);
             trackRobot();
@@ -1257,7 +1248,7 @@ public class MainActivity extends AppCompatActivity {
         // Insert into lists
         obstacleViews.put(obstacleNumber, newObstacleGroup);
         obstacleFaceViews2.put(obstacleNumber, newObstacleFace);
-        obstacleTextViews.add(newObstacleNumber);
+        obstacleTextViews.put(obstacleNumber, newObstacleNumber);
         obstacleBoxViews.add(newObstacleBox);
         newObstacleGroup.setOnTouchListener(obstacleOnTouchListener);
         return newObstacleGroup;

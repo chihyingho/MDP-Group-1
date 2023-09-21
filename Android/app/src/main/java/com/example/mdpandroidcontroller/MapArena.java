@@ -132,12 +132,12 @@ public class MapArena extends View { //implements Serializable
             int xCoordinate = obstacleCoordinates[0];
             int yCoordinate = obstacleCoordinates[1];
             TextView xCoordinateText = new TextView(this.getContext());
-            xCoordinateText.setText(String.valueOf(xCoordinate-1));
+            xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTextColor(Color.WHITE);
             xCoordinateText.setTypeface(mainFont);
             xCoordinateText.setTextSize(15);
             TextView yCoordinateText = new TextView(this.getContext());
-            yCoordinateText.setText(String.valueOf(19-yCoordinate));
+            yCoordinateText.setText(String.valueOf(yCoordinate));
             yCoordinateText.setTextColor(Color.WHITE);
             yCoordinateText.setTextSize(15);
             yCoordinateText.setTypeface(mainFont);
@@ -406,8 +406,13 @@ public class MapArena extends View { //implements Serializable
         System.out.println(String.format("Added obstacle at X: %d Y: %d", column, row));
         setObstacleCoord(new int[] {column, row});
         ObstacleDetails newObstacleDetails = new ObstacleDetails();
-        newObstacleDetails.setCoordinates(new int[] {column, row});
+        newObstacleDetails.setCoordinates(new int[] {column-1, convertRow(row)-1});
         obstacleInformation.put(obstacleNumber, newObstacleDetails);
+    }
+
+    public int[] getObstacleCoordinates(int obstacleNumber) {
+        ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
+        return obstacle.getCoordinates();
     }
 
     public int[] calculateCoordinates(int x, int y) {

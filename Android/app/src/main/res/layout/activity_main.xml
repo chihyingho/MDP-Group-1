@@ -80,8 +80,8 @@
             android:id="@+id/robotcar"
             android:layout_width="138px"
             android:layout_height="138px"
-            android:background="#5FB6F3"
-            android:src="@drawable/robot"
+            android:background="#000000"
+            android:src="@drawable/pacman"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
