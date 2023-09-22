@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -436,98 +437,218 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.arrowForward:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
                         } else {
                             masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
                         }
-                        instruction1 = "f";
                         break;
                     case R.id.arrowRight:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
                         } else {
                             masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
                         }
-                        instruction1 = "sr";
                         break;
                     case R.id.arrowLeft:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
                         } else {
                             masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
                         }
-                        instruction1 = "sl";
                         break;
                     case R.id.arrowBack:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
                         } else {
                             masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
                         }
-                        instruction1 = "r";
                         break;
                     case R.id.arrowNE:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
                         } else {
                             masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
                         }
-                        instruction1 = "fr";
                         break;
                     case R.id.arrowSE:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
                         } else {
                             masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
                         }
-                        instruction1 = "br";
                         break;
                     case R.id.arrowSW:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
                         } else {
                             masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
                         }
-                        instruction1 = "bl";
                         break;
                     case R.id.arrowNW:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             masterRobotMovement(Constants.FLEFT);
+                            instruction1 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            masterRobotMovement(Constants.LEFT);
+                            instruction1 = "stm-FL090";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             masterRobotMovement(Constants.BLEFT);
+                            instruction1 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            masterRobotMovement(Constants.DOWN);
+                            instruction1 = "stm-BW020";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             masterRobotMovement(Constants.BRIGHT);
+                            instruction1 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            masterRobotMovement(Constants.RIGHT);
+                            instruction1 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            masterRobotMovement(Constants.UP);
+                            instruction1 = "stm-FW020";
                         } else {
                             masterRobotMovement(Constants.FRIGHT);
+                            instruction1 = "stm-FR045";
                         }
-                        instruction1 = "fl";
                         break;
                 }
 
@@ -555,98 +676,218 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.arrowForward:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR45";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
                         } else {
                             longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
                         }
-                        instruction2 = "f";
                         break;
                     case R.id.arrowRight:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
                         } else {
                             longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
                         }
-                        instruction2 = "sr";
                         break;
                     case R.id.arrowLeft:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
                         } else {
                             longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
                         }
-                        instruction2 = "sl";
                         break;
                     case R.id.arrowBack:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
                         } else {
                             longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
                         }
-                        instruction2 = "r";
                         break;
                     case R.id.arrowNE:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
                         } else {
                             longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
                         }
-                        instruction2 = "fr";
                         break;
                     case R.id.arrowSE:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
                         } else {
                             longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
                         }
-                        instruction2 = "br";
                         break;
                     case R.id.arrowSW:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
                         } else {
                             longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
                         }
-                        instruction2 = "bl";
                         break;
                     case R.id.arrowNW:
                         if (map.getRobotFacing() == Constants.NORTH) {
                             longPress = Constants.FLEFT;
+                            instruction2 = "stm-FL045";
+                        } else if (map.getRobotFacing() == Constants.NORTHEAST) {
+                            longPress = Constants.LEFT;
+                            instruction2 = "stm-FL090";
                         } else if (map.getRobotFacing() == Constants.EAST) {
                             longPress = Constants.BLEFT;
+                            instruction2 = "stm-BL045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHEAST) {
+                            longPress = Constants.DOWN;
+                            instruction2 = "stm-BW020";
                         } else if (map.getRobotFacing() == Constants.SOUTH) {
                             longPress = Constants.BRIGHT;
+                            instruction2 = "stm-BR045";
+                        } else if (map.getRobotFacing() == Constants.SOUTHWEST) {
+                            longPress = Constants.RIGHT;
+                            instruction2 = "stm-FR090";
+                        } else if (map.getRobotFacing() == Constants.NORTHWEST) {
+                            longPress = Constants.UP;
+                            instruction2 = "stm-FW020";
                         } else {
                             longPress = Constants.FRIGHT;
+                            instruction2 = "stm-FR045";
                         }
-                        instruction2 = "fl";
                         break;
                 }
                 if (Constants.connected) {
@@ -906,7 +1147,7 @@ public class MainActivity extends AppCompatActivity {
                 if (robot.getVisibility() == View.VISIBLE) {
                     map.setOldRobotCoord(map.getCurCoord()[0], map.getCurCoord()[1]);
                 }
-                map.saveFacingWithRotation(rotation);
+                map.saveFacingWithRotation(0);
                 map.setCanDrawRobot(true);
                 map.setCurCoord(robotColPopup, robotRowPopup);
                 robot.setVisibility(View.VISIBLE);
@@ -1365,8 +1606,7 @@ public class MainActivity extends AppCompatActivity {
         newObstacleGroup.setId(View.generateViewId());
         obstacleIds.put(obstacleNumber, newObstacleGroup.getId());
         newObstacleGroup.setTag(obstacleNumber);
-        int obstacleLength = 52;
-        // int obstacleLength = (int) map.getCellSize();
+        int obstacleLength = (int) map.getCellSize();
         System.out.println(String.format("Obstacle Length %d", obstacleLength));
         newObstacleGroup.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT));
         ImageView newObstacleBox = new ImageView(this);
@@ -1664,8 +1904,7 @@ public class MainActivity extends AppCompatActivity {
                     //RECONNECT DIALOG MSG
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("BLUETOOTH DISCONNECTED");
-                    alertDialog.setMessage("Connection with device: '" + "' has ended. Do you want to reconnect?");
-
+                    alertDialog.setMessage("Connection with device: " + myBTConnectionDevice.getName() + " has ended. Do you want to reconnect?");
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -1711,7 +1950,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("MainActivity:", "Device Connected " + connectedState);
                     Snackbar snackbar = Snackbar.make(getWindow().getDecorView(), "Connection Established: " + myBTConnectionDevice.getName(), Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    //Toast.makeText(MainActivity.this, "Connection Established: " + myBTConnectionDevice.getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Connection Established: " + myBTConnectionDevice.getName(), Toast.LENGTH_LONG).show();
                 }
 
                 //BLUETOOTH CONNECTION FAILED

@@ -81,6 +81,7 @@ public class Connect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
 
+        checkBTPermission();
 
         bluetoothConnect = findViewById(R.id.connectBtn);
         btnSearch = findViewById(R.id.searchBtn);

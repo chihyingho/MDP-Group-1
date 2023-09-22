@@ -24,22 +24,25 @@ public class Constants {
     public static final String NOT_AVAILABLE = "NOT AVAILABlE";
     public static final String MDF_ALL_F_STRING = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     public static final String NONE = "None";
+
     public static final String UP = "Up";
     public static final String DOWN = "Down";
     public static final String LEFT = "Left";
     public static final String RIGHT = "Right";
-
     public static final String FRIGHT = "FRight";
-
     public static final String FLEFT = "FLeft";
-
     public static final String BRIGHT = "BRight";
-
     public static final String BLEFT = "BLeft";
+
     public static final String NORTH = "N";
     public static final String SOUTH = "S";
     public static final String EAST = "E";
     public static final String WEST = "W";
+    public static final String NORTHEAST = "NE";
+    public static final String SOUTHEAST = "SE";
+    public static final String SOUTHWEST = "SW";
+    public static final String NORTHWEST = "NW";
+
     public static final String ERROR = "Error!!!";
 
     public static boolean connected = false;
