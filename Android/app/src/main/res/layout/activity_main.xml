@@ -182,7 +182,7 @@
             android:rotation="45"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_up"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/arrowRight"
             app:layout_constraintStart_toEndOf="@+id/arrowForward" />
 
@@ -201,7 +201,7 @@
             android:rotation="135"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_up"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintStart_toEndOf="@+id/arrowBack"
             app:layout_constraintTop_toBottomOf="@+id/arrowRight" />
 
@@ -220,7 +220,7 @@
             android:rotation="225"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_up"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/arrowBack"
             app:layout_constraintTop_toBottomOf="@+id/arrowLeft" />
 
@@ -239,7 +239,7 @@
             android:rotation="315"
             android:scaleType="fitCenter"
             android:src="@drawable/pixelated_arrow_up"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/arrowLeft"
             app:layout_constraintEnd_toStartOf="@+id/arrowForward" />
 

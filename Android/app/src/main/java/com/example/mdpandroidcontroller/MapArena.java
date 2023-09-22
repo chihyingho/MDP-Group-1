@@ -375,23 +375,28 @@ public class MapArena extends View { //implements Serializable
                 tempCoord[0] = tempCoord[0] + transX;
                 tempCoord[1] = tempCoord[1] + transY;
                 break;
-            case 1:
+            case 1: //NorthEast
                 switch (this.getRobotMovement()) {
                     case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] += transY;
+                        tempCoord[1] += transY;
                         break;
                     case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[0] += transX;
                         break;
                     case Constants.RIGHT:
+                        tempCoord[0] += transY;
+                        tempCoord[1] += transX;
                         break;
                     case Constants.BRIGHT:
-                        break;
-                    case Constants.DOWN:
-                        break;
-                    case Constants.BLEFT:
+                    case Constants.FLEFT:
+                        tempCoord[1] += transY;
                         break;
                     case Constants.LEFT:
-                        break;
-                    case Constants.FLEFT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] += transY;
                         break;
                 }
                 break;
@@ -399,23 +404,28 @@ public class MapArena extends View { //implements Serializable
                 tempCoord[0] = tempCoord[0] + transY;
                 tempCoord[1] = tempCoord[1] - transX;
                 break;
-            case 3:
+            case 3: //SouthEast
                 switch (this.getRobotMovement()) {
                     case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] += transY;
+                        tempCoord[1] -= transY;
                         break;
                     case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[1] -= transY;
                         break;
                     case Constants.RIGHT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] -= transY;
                         break;
                     case Constants.BRIGHT:
-                        break;
-                    case Constants.DOWN:
-                        break;
-                    case Constants.BLEFT:
+                    case Constants.FLEFT:
+                        tempCoord[0] -= transX;
                         break;
                     case Constants.LEFT:
-                        break;
-                    case Constants.FLEFT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] += transY;
                         break;
                 }
                 break;
@@ -423,23 +433,28 @@ public class MapArena extends View { //implements Serializable
                 tempCoord[0] = tempCoord[0] - transX;
                 tempCoord[1] = tempCoord[1] - transY;
                 break;
-            case 5:
+            case 5: //SouthWest
                 switch (this.getRobotMovement()) {
                     case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] -= transY;
                         break;
                     case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[0] -= transX;
                         break;
                     case Constants.RIGHT:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] -= transX;
                         break;
                     case Constants.BRIGHT:
-                        break;
-                    case Constants.DOWN:
-                        break;
-                    case Constants.BLEFT:
+                    case Constants.FLEFT:
+                        tempCoord[1] += transY;
                         break;
                     case Constants.LEFT:
-                        break;
-                    case Constants.FLEFT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] -= transY;
                         break;
                 }
                 break;
@@ -447,23 +462,28 @@ public class MapArena extends View { //implements Serializable
                 tempCoord[0] = tempCoord[0] - transY;
                 tempCoord[1] = tempCoord[1] + transX;
                 break;
-            case 7:
+            case 7: //NorthWest
                 switch (this.getRobotMovement()) {
                     case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] += transY;
                         break;
                     case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[1] += transY;
                         break;
                     case Constants.RIGHT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] += transY;
                         break;
                     case Constants.BRIGHT:
-                        break;
-                    case Constants.DOWN:
-                        break;
-                    case Constants.BLEFT:
+                    case Constants.FLEFT:
+                        tempCoord[0] += transX;
                         break;
                     case Constants.LEFT:
-                        break;
-                    case Constants.FLEFT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] -= transY;
                         break;
                 }
                 break;
