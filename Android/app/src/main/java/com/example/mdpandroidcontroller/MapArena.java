@@ -47,7 +47,7 @@ public class MapArena extends View { //implements Serializable
     private static ArrayList<int[]> obstacleCoord = new ArrayList<>();
     // Stores obstacle information
     // Integer --> obstacle number
-    // obstalceDetails --> stores obstacle info
+    // obstacleDetails --> stores obstacle info
     private static Map <Integer, ObstacleDetails> obstacleInformation = new HashMap<>();
     private static int[] oldCoord = new int[]{-1, -1};
 
@@ -489,8 +489,6 @@ public class MapArena extends View { //implements Serializable
                 break;
         }
 
-
-
         // CHECKS OUT OF BOUNDS
         if (Objects.equals(this.getRobotMovement(), Constants.FRIGHT) || Objects.equals(this.getRobotMovement(), Constants.FLEFT) || Objects.equals(this.getRobotMovement(), Constants.BRIGHT) || Objects.equals(this.getRobotMovement(), Constants.BLEFT)){
             if (tempCoord[0] < 1) {
@@ -866,6 +864,44 @@ public class MapArena extends View { //implements Serializable
 
     public int getCol() {
         return COL;
+    }
+
+    public int[][] getObstacleData() {
+        int[][] obstacleData;
+        Integer obstacleNum;
+        ObstacleDetails details;
+        int index = 0;
+        if (!obstacleInformation.isEmpty()) {
+            obstacleData = new int[obstacleInformation.size()][4];
+            for (Map.Entry<Integer, ObstacleDetails> set :
+                    obstacleInformation.entrySet()) {
+                obstacleNum = set.getKey();
+                details = set.getValue();
+                obstacleData[index][0] = obstacleNum;
+                obstacleData[index][1] = details.getCoordinates()[0];
+                obstacleData[index][2] = details.getCoordinates()[1];
+                switch(details.getObstacleFace()){
+                    case UNKNOWN:
+                        obstacleData[index][3] = 0;
+                        break;
+                    case NORTH:
+                        obstacleData[index][3] = 1;
+                        break;
+                    case SOUTH:
+                        obstacleData[index][3] = 2;
+                        break;
+                    case EAST:
+                        obstacleData[index][3] = 3;
+                        break;
+                    case WEST:
+                        obstacleData[index][3] = 4;
+                        break;
+                }
+                index++;
+            }
+            return obstacleData;
+        }
+        return null;
     }
 
 

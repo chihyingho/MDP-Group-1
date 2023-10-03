@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -48,7 +47,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -1026,6 +1024,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button sendMapData = (Button) findViewById(R.id.sendMap);
+        sendMapData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int[][] obstacleData = map.getObstacleData();
+                if (obstacleData != null && Constants.connected) {
+                    StringBuilder data = new StringBuilder("" + obstacleData[0][0] + "," + obstacleData[0][1] + "," + obstacleData[0][2] + "," + obstacleData[0][3]);
+                    for (int i = 1; i < obstacleData.length; i++) {
+                        data.append("|").append(obstacleData[i][0]).append(",").append(obstacleData[i][1]).append(",").append(obstacleData[i][2]).append(",").append(obstacleData[i][3]);
+                    }
+                    byte[] bytes = data.toString().getBytes(Charset.defaultCharset());
+                    BluetoothChat.writeMsg(bytes);
+                    Log.d("MainActivity", "Map Data sent");
+                }
+            }
+        });
 
         //POPUP BUTTONS
         ImageButton startRobot = (ImageButton) findViewById(R.id.start_robot);
@@ -1526,18 +1540,18 @@ public class MainActivity extends AppCompatActivity {
         prefix = prefix.toUpperCase();
 
         //FOR STATUS
-        if (prefix.equals("STATUS")) {
+        if (prefix.equals("android-STATUS")) {
             // assuming max 1 comma
             String display = "STATUS: ";
             display = display + instructionList.get(1);
             outputNotifView.setText(display);
-        } else if (prefix.equals("TARGET")) {
+        } else if (prefix.equals("android-TARGET")) {
             int obstacleNumber = Integer.parseInt(instructionList.get(1));
             String targetID = instructionList.get(2);
             TextView targetTextView = obstacleTextViews.get(obstacleNumber);
             targetTextView.setText(targetID);
             targetTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        } else if (prefix.equals("ROBOT")) {
+        } else if (prefix.equals("android-ROBOT")) {
             //SET A MAX AND MIN!!! -- 8 feb
             int col = Integer.parseInt(instructionList.get(1));
             int row = Integer.parseInt(instructionList.get(2));
@@ -1917,7 +1931,7 @@ public class MainActivity extends AppCompatActivity {
                             connectIntent.putExtra("id", myUUID);
                             startService(connectIntent);
                         }
-                    }, 8000);
+                    }, 5000);
 
                     alertDialog.show();
 
