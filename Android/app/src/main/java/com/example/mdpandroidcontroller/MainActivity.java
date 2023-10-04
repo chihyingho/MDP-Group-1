@@ -1259,7 +1259,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_north:
                         if (obstacleFaceCur.getRotation() == 0 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(0);
@@ -1270,7 +1270,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_east:
                         if (obstacleFaceCur.getRotation() == 90 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(90);
@@ -1281,7 +1281,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_south:
                         if (obstacleFaceCur.getRotation() == 180 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(180);
@@ -1292,7 +1292,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_west:
                         if (obstacleFaceCur.getRotation() == 270 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(270);
