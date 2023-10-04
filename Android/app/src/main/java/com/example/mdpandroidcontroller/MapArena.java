@@ -47,10 +47,13 @@ public class MapArena extends View { //implements Serializable
     private static int robotSize = 3;
     private static int oldFacing;
     private static int newFacing;
-    private static String[] robotFacingEnum = new String[] {Constants.NORTH, Constants.EAST, Constants.SOUTH, Constants.WEST};
+    private static String[] robotFacingEnum = new String[] {Constants.NORTH, Constants.NORTHEAST, Constants.EAST, Constants.SOUTHEAST, Constants.SOUTH, Constants.SOUTHWEST, Constants.WEST, Constants.NORTHWEST};
     private static int[] curCoord = new int[]{1, 1};
 
     private static ArrayList<int[]> obstacleCoord = new ArrayList<>();
+    // Stores obstacle information
+    // Integer --> obstacle number
+    // obstacleDetails --> stores obstacle info
     private static Map <Integer, ObstacleDetails> obstacleInformation = new HashMap<>();
     private static int[] oldCoord = new int[]{-1, -1};
 
@@ -277,7 +280,7 @@ public class MapArena extends View { //implements Serializable
         black.setTypeface(mainFont);
         for (int x = 1; x <= COL; x++) {
             if (x > 9)
-                canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 5), cells[x][20].startY + (cellSize / 3), black);
+                canvas.drawText(Integer.toString(x-1), cells[x][20].startX, cells[x][20].startY + (cellSize / 3), black);
             else
                 canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 3), cells[x][20].startY + (cellSize / 3), black);
         }
@@ -318,9 +321,9 @@ public class MapArena extends View { //implements Serializable
 
                 //changing to new facing
                 if (robotReverse) {
-                    newFacing = (oldFacing + 1) % 4;
+                    newFacing = (oldFacing + 2) % 8;
                 } else {
-                    newFacing = (oldFacing + 3) % 4;
+                    newFacing = (oldFacing + 6) % 8;
                 }
                 setRobotFacing(robotFacingEnum[newFacing]);
 
@@ -331,9 +334,9 @@ public class MapArena extends View { //implements Serializable
                 transY = 2;
 
                 if (robotReverse) {
-                    newFacing = (oldFacing + 3) % 4;
+                    newFacing = (oldFacing + 6) % 8;
                 } else {
-                    newFacing = (oldFacing + 1) % 4;
+                    newFacing = (oldFacing + 2) % 8;
                 }
                 setRobotFacing(robotFacingEnum[newFacing]);
 
@@ -342,21 +345,49 @@ public class MapArena extends View { //implements Serializable
                 // Includes check for end of the grid
                 transX = 1;
                 transY = 1;
+
+                if (robotReverse) {
+                    newFacing = (oldFacing + 7) % 8;
+                } else {
+                    newFacing = (oldFacing + 1) % 8;
+                }
+                setRobotFacing(robotFacingEnum[newFacing]);
                 break;
             case Constants.FLEFT:
                 // Includes check for end of the grid
                 transX = -1;
                 transY = 1;
+
+                if (robotReverse) {
+                    newFacing = (oldFacing + 1) % 8;
+                } else {
+                    newFacing = (oldFacing + 7) % 8;
+                }
+                setRobotFacing(robotFacingEnum[newFacing]);
                 break;
             case Constants.BRIGHT:
                 // Includes check for end of the grid
                 transX = 1;
                 transY = -1;
+
+                if (robotReverse) {
+                    newFacing = (oldFacing + 1) % 8;
+                } else {
+                    newFacing = (oldFacing + 7) % 8;
+                }
+                setRobotFacing(robotFacingEnum[newFacing]);
                 break;
             case Constants.BLEFT:
                 // Includes check for end of the grid
                 transX = -1;
                 transY = -1;
+
+                if (robotReverse) {
+                    newFacing = (oldFacing + 7) % 8;
+                } else {
+                    newFacing = (oldFacing + 1) % 8;
+                }
+                setRobotFacing(robotFacingEnum[newFacing]);
                 break;
             default:
                 System.out.println("Error in moveRobot() direction input");
@@ -373,21 +404,119 @@ public class MapArena extends View { //implements Serializable
                 tempCoord[0] = tempCoord[0] + transX;
                 tempCoord[1] = tempCoord[1] + transY;
                 break;
-            case 1: //East
+            case 1: //NorthEast
+                switch (this.getRobotMovement()) {
+                    case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] += transY;
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[0] += transX;
+                        break;
+                    case Constants.RIGHT:
+                        tempCoord[0] += transY;
+                        tempCoord[1] += transX;
+                        break;
+                    case Constants.BRIGHT:
+                    case Constants.FLEFT:
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.LEFT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] += transY;
+                        break;
+                }
+                break;
+            case 2: //East
                 tempCoord[0] = tempCoord[0] + transY;
                 tempCoord[1] = tempCoord[1] - transX;
                 break;
-            case 2: //South
+            case 3: //SouthEast
+                switch (this.getRobotMovement()) {
+                    case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] += transY;
+                        tempCoord[1] -= transY;
+                        break;
+                    case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[1] -= transY;
+                        break;
+                    case Constants.RIGHT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] -= transY;
+                        break;
+                    case Constants.BRIGHT:
+                    case Constants.FLEFT:
+                        tempCoord[0] -= transX;
+                        break;
+                    case Constants.LEFT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] += transY;
+                        break;
+                }
+                break;
+            case 4: //South
                 tempCoord[0] = tempCoord[0] - transX;
                 tempCoord[1] = tempCoord[1] - transY;
                 break;
-            case 3: //West
+            case 5: //SouthWest
+                switch (this.getRobotMovement()) {
+                    case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] -= transY;
+                        break;
+                    case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[0] -= transX;
+                        break;
+                    case Constants.RIGHT:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] -= transX;
+                        break;
+                    case Constants.BRIGHT:
+                    case Constants.FLEFT:
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.LEFT:
+                        tempCoord[0] += transX;
+                        tempCoord[1] -= transY;
+                        break;
+                }
+                break;
+            case 6: //West
                 tempCoord[0] = tempCoord[0] - transY;
                 tempCoord[1] = tempCoord[1] + transX;
                 break;
+            case 7: //NorthWest
+                switch (this.getRobotMovement()) {
+                    case Constants.UP:
+                    case Constants.DOWN:
+                        tempCoord[0] -= transY;
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.FRIGHT:
+                    case Constants.BLEFT:
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.RIGHT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] += transY;
+                        break;
+                    case Constants.BRIGHT:
+                    case Constants.FLEFT:
+                        tempCoord[0] += transX;
+                        break;
+                    case Constants.LEFT:
+                        tempCoord[0] -= transX;
+                        tempCoord[1] -= transY;
+                        break;
+                }
+                break;
         }
-
-
 
         // CHECKS OUT OF BOUNDS
         if (Objects.equals(this.getRobotMovement(), Constants.FRIGHT) || Objects.equals(this.getRobotMovement(), Constants.FLEFT) || Objects.equals(this.getRobotMovement(), Constants.BRIGHT) || Objects.equals(this.getRobotMovement(), Constants.BLEFT)){
@@ -594,12 +723,20 @@ public class MapArena extends View { //implements Serializable
         switch (facing) {
             case Constants.NORTH:
                 return 0;
+            case Constants.NORTHEAST:
+                return 45;
             case Constants.EAST:
                 return 90;
+            case Constants.SOUTHEAST:
+                return 135;
             case Constants.SOUTH:
                 return 180;
+            case Constants.SOUTHWEST:
+                return 225;
             case Constants.WEST:
                 return 270;
+            case Constants.NORTHWEST:
+                return 315;
             default:
                 return 0;    // assume
         }
@@ -609,12 +746,20 @@ public class MapArena extends View { //implements Serializable
         switch (rotation) {
             case 0:
                 return Constants.NORTH;
+            case 45:
+                return Constants.NORTHEAST;
             case 90:
                 return Constants.EAST;
+            case 135:
+                return Constants.SOUTHEAST;
             case 180:
                 return Constants.SOUTH;
+            case 225:
+                return Constants.SOUTHWEST;
             case 270:
                 return Constants.WEST;
+            case 315:
+                return Constants.NORTHWEST;
             default:
                 return Constants.ERROR;    // assume
         }
@@ -729,7 +874,7 @@ public class MapArena extends View { //implements Serializable
         robotFacing = facing;}
 
     public void saveFacingWithRotation(int rotation) {
-        robotFacing = robotFacingEnum[(int) (rotation / 90)];
+        robotFacing = robotFacingEnum[(int) (rotation / 45)];
     }
 
     /**
@@ -752,6 +897,44 @@ public class MapArena extends View { //implements Serializable
 
     public int getCol() {
         return COL;
+    }
+
+    public int[][] getObstacleData() {
+        int[][] obstacleData;
+        Integer obstacleNum;
+        ObstacleDetails details;
+        int index = 0;
+        if (!obstacleInformation.isEmpty()) {
+            obstacleData = new int[obstacleInformation.size()][4];
+            for (Map.Entry<Integer, ObstacleDetails> set :
+                    obstacleInformation.entrySet()) {
+                obstacleNum = set.getKey();
+                details = set.getValue();
+                obstacleData[index][0] = obstacleNum;
+                obstacleData[index][1] = details.getCoordinates()[0];
+                obstacleData[index][2] = details.getCoordinates()[1];
+                switch(details.getObstacleFace()){
+                    case UNKNOWN:
+                        obstacleData[index][3] = 0;
+                        break;
+                    case NORTH:
+                        obstacleData[index][3] = 1;
+                        break;
+                    case SOUTH:
+                        obstacleData[index][3] = 2;
+                        break;
+                    case EAST:
+                        obstacleData[index][3] = 3;
+                        break;
+                    case WEST:
+                        obstacleData[index][3] = 4;
+                        break;
+                }
+                index++;
+            }
+            return obstacleData;
+        }
+        return null;
     }
 
 
