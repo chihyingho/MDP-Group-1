@@ -1,5 +1,7 @@
 package com.example.mdpandroidcontroller;
 
+import static java.lang.Integer.parseInt;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.annotation.SuppressLint;
@@ -50,11 +52,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -197,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static ConstraintLayout popup;
     private static ConstraintLayout robot_popup;
-    private static Switch reverseSwitch;
-
     private static int robotColPopup = 1;
     private static int robotRowPopup = 1;
     private static String robotFacingPopup = "N";
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
+        TableLayout obstacleInformationTable = findViewById(R.id.obstacleInformation);
 
         //mStatusBlueTv = findViewById(R.id.statusBluetoothTv);
 
@@ -325,12 +325,66 @@ public class MainActivity extends AppCompatActivity {
         ImageView initialObstacleBox = (ImageView) findViewById(R.id.initialObstacleBox);
         ImageView initialObstacleFace = (ImageView) findViewById(R.id.initialObstacleFace);
         TextView initialObstacleId = (TextView) findViewById(R.id.initialObstacleId);
-        TableLayout obstacleInformationTable = findViewById(R.id.obstacleInformation);
+        initialObstacleId.setTag("Obstacle 1 text view");
         TextView obstacleCoordinatesTextView = (TextView) findViewById(R.id.obstacleCoordinates);
         obstacleViews.put(1, initialObstacleGrp);
         obstacleBoxViews.add(initialObstacleBox);
         obstacleFaceViews2.put(1, initialObstacleFace);
         obstacleTextViews.put(1, initialObstacleId);
+        Button preloadObstaclesButton = (Button) findViewById(R.id.preloadObstaclesButton);
+        // duplicate? check that not null?
+        ViewGroup parentView = (ViewGroup) map.getParent();
+        preloadObstaclesButton.setOnClickListener(new View.OnClickListener() {
+            // come back to this
+            @Override
+            public void onClick(View view) {
+                int numberOfObstacles = 1;
+                // Select number of obstacles
+                // Generate obstacle coordinates --> last column, alternate row,
+                // Check if coordinates have been occupied --> obstacleDetails --> coordinates
+                // bugs with the save button
+                int mapCellSize = (int) map.getCellSize();
+                for (int j = 0; j < numberOfObstacles; j++) {
+                    int newObstacleNumber = obstacleViews.size() + 1;
+                    while (obstacleViews.get(newObstacleNumber) != null) {
+                        newObstacleNumber++;
+                    }
+                    ConstraintLayout newObstacle = createNewObstacle(newObstacleNumber);
+                    ConstraintLayout fullScreen = findViewById(R.id.fullScreen);
+                    ConstraintSet constraintSet = new ConstraintSet();
+                    constraintSet.clone(fullScreen);
+                    constraintSet.clear(newObstacle.getId(), ConstraintSet.START);
+                    constraintSet.clear(newObstacle.getId(), ConstraintSet.END);
+                    constraintSet.clear(newObstacle.getId(), ConstraintSet.TOP);
+                    constraintSet.clear(newObstacle.getId(), ConstraintSet.BOTTOM);
+                    constraintSet.connect(newObstacle.getId(), ConstraintSet.START, R.id.fullScreen, ConstraintSet.START);
+                    constraintSet.connect(newObstacle.getId(), ConstraintSet.TOP, R.id.fullScreen, ConstraintSet.TOP);
+                    // Apply the constraints to the parent ConstraintLayout
+                    constraintSet.applyTo(fullScreen);
+                    int xMapCoordinate = 5;
+                    int yMapCoordinate = 5;
+                    int xCoordinate = ((xMapCoordinate + 1) * mapCellSize) + (int) map.getX();
+                    int yCoordinate = ((19 - yMapCoordinate) * mapCellSize) + (int) map.getY();
+                    map.insertNewObstacleIntoArena(newObstacleNumber, xCoordinate, yCoordinate);
+                    latestObstacleCoordinates.put(newObstacleNumber, new int[] {xCoordinate, yCoordinate});
+                    newObstacle.setX(xCoordinate);
+                    newObstacle.setY(yCoordinate);
+                    map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                    map.invalidate();
+
+                    // Notification
+                    outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", newObstacleNumber, xMapCoordinate, yMapCoordinate);
+                    outputNotifView.setText(outputNotif);
+                    if (Constants.connected) {
+                        byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
+                        BluetoothChat.writeMsg(bytes);
+                    }
+                    // Check that popup still opens (if branch)
+
+                }
+            }
+        }
+        );
 
         //TEXTVIEWS
         outputNotifView = (TextView) findViewById(R.id.notifications);
@@ -342,9 +396,6 @@ public class MainActivity extends AppCompatActivity {
 
         robot_popup = (ConstraintLayout) findViewById(R.id.popup_window_robot);
         robot_popup.setVisibility(View.INVISIBLE);
-
-        // reverse
-        reverseSwitch = (Switch) findViewById(R.id.reverse_switch);
 
         printAllObstacleCoords();
 
@@ -365,8 +416,6 @@ public class MainActivity extends AppCompatActivity {
                 robot.getLayoutParams().height = (int) map.getCellSize() * 3;
                 robot.getLayoutParams().width = (int) map.getCellSize() * 3;
                 robot.requestLayout();
-                //reverse
-                reverseSwitch.setChecked(false);  // default = false: not reverse
                 // check where to add this paragraph
                 //MAP coordinates - for saving
                 mapLeft = map.getLeft();
@@ -981,19 +1030,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
-        reverseSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (reverseSwitch.isChecked()) {
-                    reverseSwitch.setChecked(true);
-                } else {
-                    reverseSwitch.setChecked(false);
-                }
-            }
-        });
-
-
         //OBSTACLES
         /*
         View.OnTouchListener obstacleOnTouchListener = new View.OnTouchListener() {
@@ -1016,7 +1052,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * finally works - resets all obstacles to the original coordinates
          */
-        Button resetObstacles = (Button) findViewById(R.id.resetObstacles);
+        ImageButton resetObstacles = (ImageButton) findViewById(R.id.resetObstacles);
         resetObstacles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1041,43 +1077,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button preloadObstacles = (Button) findViewById(R.id.preLoad);
-        preloadObstacles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int[][] coords = {{170,404}, {168,266},{157,147},{348,401},{353,272},{351,143}};
-                for (int i = 0; i < 1; i++) {
-                    ConstraintLayout curObstacleGrp = createNewObstacle(obstacleViews.size()+1);
-                    map.insertNewObstacleIntoArena(obstacleViews.size(), coords[i][0], coords[i][1]);
-                    int[] newObstCoordColRow = map.calculateCoordinates(coords[i][0], coords[i][1]);
-
-                    int[] newObstacleCoord = {newObstCoordColRow[0], newObstCoordColRow[1]};
-                    newObstacleCoord[0] = newObstacleCoord[0] + (int) (map.getX());  // NEW 6 feb
-                    newObstacleCoord[1] = newObstacleCoord[1] + (int) (map.getY());
-
-                    latestObstacleCoordinates.put(obstacleViews.size()+1, newObstacleCoord);
-
-                    // MUST get from the map class to snap to grid - for the new image
-                    curObstacleGrp.setX(52 + (int) map.getX());
-                    curObstacleGrp.setY(18 * 52 + map.getY());
-                    // curObstacleGrp.setX(coords[i][0]-370); //+ map.getX()); // SHOULD BE INBUILT!!
-                    // curObstacleGrp.setY(coords[i][1]-600); // + map.getY());
-                    printAllObstacleCoords();
-                    curObstacleGrp.setVisibility(View.VISIBLE);
-                    map.generateObstacleInformationTableRows(obstacleInformationTable);
-                    map.invalidate();
-                }
-            }
-        });
-
         //POPUP BUTTONS
-        Button startRobot = (Button) findViewById(R.id.start_robot);
+        ImageButton startRobot = (ImageButton) findViewById(R.id.start_robot);
         startRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //executeInstruction();
-                outputNotif = String.format("BEGINNNN");
+                outputNotif = String.format("run");
                 outputNotifView.setText(outputNotif);
 
                 if (Constants.connected) {
@@ -1150,7 +1156,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerRobotX.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                robotColPopup = Integer.parseInt(parent.getItemAtPosition(position).toString());
+                robotColPopup = parseInt(parent.getItemAtPosition(position).toString());
                 System.out.printf("COL: %d\n", robotColPopup);
             }
 
@@ -1162,7 +1168,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerRobotY.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                robotRowPopup = Integer.parseInt(parent.getItemAtPosition(position).toString());
+                robotRowPopup = parseInt(parent.getItemAtPosition(position).toString());
                 System.out.printf("ROW: %d\n", robotRowPopup);
             }
 
@@ -1233,6 +1239,47 @@ public class MainActivity extends AppCompatActivity {
         Button eastFace = (Button) findViewById(R.id.face_east);
         Button southFace = (Button) findViewById(R.id.face_south);
         Button westFace = (Button) findViewById(R.id.face_west);
+        Button saveButton = (Button) findViewById(R.id.saveButton);
+        EditText editText = findViewById(R.id.editText);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userInput = editText.getText().toString();
+                try {
+                    int newObstacleNumber = Integer.parseInt(userInput);
+                    if (!map.obstacleInMap(newObstacleNumber)) {
+                        int oldObstacleNumber = Integer.parseInt(editText.getHint().toString());
+                        map.changeObstacleNumber(oldObstacleNumber, newObstacleNumber);
+                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                        ConstraintLayout oldObstacleView = obstacleViews.get(oldObstacleNumber);
+                        oldObstacleView.setTag(Integer.toString(newObstacleNumber));
+                        for (int i = 0; i < oldObstacleView.getChildCount(); i++) {
+                            View childView = oldObstacleView.getChildAt(i);
+                            if (childView.getTag() != null && childView.getTag().equals(String.format("Obstacle %d text view", oldObstacleNumber))) {
+                                TextView textView = (TextView) childView; // Cast childView to TextView
+                                textView.setText(Integer.toString(newObstacleNumber));
+                                textView.setTag(String.format("Obstacle %d text view", newObstacleNumber));
+                                break;
+                            }
+                        }
+                        obstacleViews.remove(oldObstacleNumber);
+                        obstacleViews.put(newObstacleNumber, oldObstacleView);
+                        int[] coordinates = map.getObstacleCoordinates(newObstacleNumber);
+                        String notification = String.format("Obstacle: %d, Col: %d, Row: %d", newObstacleNumber, coordinates[0], coordinates[1]);
+                        outputNotifView.setText(notification);
+                        String successfulObstacleChangeMessage = String.format("Successfully changed obstacle number from %d to %d!", oldObstacleNumber, newObstacleNumber);
+                        Snackbar snackbar = Snackbar.make(getWindow().getDecorView(), successfulObstacleChangeMessage, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    } else {
+                        Snackbar snackbar = Snackbar.make(getWindow().getDecorView(), "This obstacle number is already in the map! Please key in a different obstacle number.", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                } catch (NumberFormatException e) {
+                    Snackbar snackbar = Snackbar.make(getWindow().getDecorView(), "Obstacle number invalid! Obstacle numbers must be positive integers.", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            }
+        });
 
         /**
          * Relevant for all obstacles!
@@ -1248,7 +1295,7 @@ public class MainActivity extends AppCompatActivity {
                 int obstacleNumber = -1;
                 if (tag instanceof String) {
                     String tagString = (String) tag;
-                    obstacleNumber = Integer.parseInt(tagString);
+                    obstacleNumber = parseInt(tagString);
                 } else if (tag instanceof Integer) {
                     int tagInteger = (int) tag;
                     obstacleNumber = tagInteger;
@@ -1259,7 +1306,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_north:
                         if (obstacleFaceCur.getRotation() == 0 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(0);
@@ -1270,7 +1317,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_east:
                         if (obstacleFaceCur.getRotation() == 90 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(90);
@@ -1281,7 +1328,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_south:
                         if (obstacleFaceCur.getRotation() == 180 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(180);
@@ -1292,7 +1339,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.face_west:
                         if (obstacleFaceCur.getRotation() == 270 && obstacleFaceCur.getVisibility() == View.VISIBLE) {
                             obstacleFaceCur.setVisibility(View.INVISIBLE);
-                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.UNKNOWN);
+                            map.updateTargetLocation(obstacleNumber, ObstacleDetails.ObstacleFace.NONE);
                         } else {
                             obstacleFaceCur.setVisibility(View.VISIBLE);
                             obstacleFaceCur.setRotation(270);
@@ -1301,7 +1348,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                map.generateObstacleInformationTableRows(obstacleInformationTable);
+                map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
                 System.out.println(String.format("obstacleNum %d", obstacleNumber));
                 int[] currentColRow = map.getColRowFromXY(obstacleGroup.getX(), obstacleGroup.getY(), map.getLeft(), map.getTop());
 
@@ -1312,10 +1359,10 @@ public class MainActivity extends AppCompatActivity {
                     outputNotifView.setText(outputNotif);
 
                     //SEND VALUE
-                    /*if (Constants.connected) {
+                    if (Constants.connected) {
                         byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                         BluetoothChat.writeMsg(bytes);
-                    }*/
+                    }
                 }
 
             }
@@ -1347,9 +1394,6 @@ public class MainActivity extends AppCompatActivity {
                         int xCoordinate = (int) dragEvent.getX();
                         int yCoordinate = (int) dragEvent.getY();
                         System.out.println(String.format("dragged into map: x: %d, y: %d", xCoordinate, yCoordinate));
-                        // Reset highlight
-                        // Calculate the cell to be highlighted
-                        // create a map method to highlight that coordinate (set test)
                         int[] obstacleCoordinates = map.calculateObstacleCoordinatesOnMap(xCoordinate, yCoordinate);
                         String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]+1, 19-obstacleCoordinates[1]);
                         obstacleCoordinatesTextView.setX(xCoordinate);
@@ -1379,16 +1423,13 @@ public class MainActivity extends AppCompatActivity {
                         ConstraintLayout curObstacleGrp = (ConstraintLayout) dragEvent.getLocalState();
                         int x = (int) dragEvent.getX();
                         int y = (int) dragEvent.getY();
-                        Log.d("main", Integer.toString(x));
-                        Log.d("main", Integer.toString(y));
-                        System.out.println(curObstacleGrp);
                         System.out.println("Obstacle has been released");
-                        // to add the new obstacle black square - returns the coordinates, col and row --> (x, y, col, row)
+                        // Get obstacle number
                         Object tag = curObstacleGrp.getTag();
                         int obstacleNumber = -1;
                         if (tag instanceof String) {
                             String tagString = (String) tag;
-                            obstacleNumber = Integer.parseInt(tagString);
+                            obstacleNumber = parseInt(tagString);
                         } else if (tag instanceof Integer) {
                             int tagInteger = (int) tag;
                             obstacleNumber = tagInteger;
@@ -1397,27 +1438,32 @@ public class MainActivity extends AppCompatActivity {
                         // this is the exact location - but we want to snap to grid //myImage.setX(x + map.getX() - map.getCellSize()/2); //myImage.setY(y+ map.getY() - map.getCellSize()/2);
                         // if the past location of obstacle was in the map, u remove the old one.
                         if (pastX >= map.getX() && pastX <= map.getX() + map.getWidth() && pastY >= map.getY() && pastY <= map.getY() + map.getHeight()) {
-                            // Move obstacle within arena
                             System.out.println("obstacle was previously in map");
                             map.removeObstacleUsingCoord(pastX - map.getX() + map.getCellSize() / 2, pastY - map.getY() + map.getCellSize() / 2);
+                            // this function!!!
                             map.updateObstacleCoordinatesInArena(obstacleNumber, x, y);
                         } else {
                             // Move obstacle from outside arena to inside arena
                             System.out.println("Obstacle was moved from outside to inside map");
-                            createNewObstacle(obstacleViews.size()+1);
+                            int newObstacleNumber = obstacleViews.size() + 1;
+                            while (obstacleViews.get(newObstacleNumber) != null) {
+                                newObstacleNumber++;
+                            }
+                            createNewObstacle(newObstacleNumber);
+                            // Updates obstacleInformation and obstacleDetails
                             map.insertNewObstacleIntoArena(obstacleNumber, x, y);
                         }
-
+                        // come back to this
                         int[] newObstCoordColRow = map.calculateCoordinates(x, y);
 
                         System.out.println("Notification values:");
                         int col = newObstCoordColRow[2];
                         int row = newObstCoordColRow[3];
                         outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", obstacleNumber, col, row);
-                        System.out.println(outputNotif);
                         outputNotifView.setText(outputNotif);
 
                         //others
+                        // raw column * cell size, raw row * cell size
                         int[] newObstacleCoord = {newObstCoordColRow[0], newObstCoordColRow[1]};
                         System.out.println("Updating new obstacle coord");
                         System.out.println(String.format("newObstacleCoord x: %d y: %d", newObstacleCoord[0], newObstacleCoord[1]));
@@ -1430,26 +1476,29 @@ public class MainActivity extends AppCompatActivity {
                         // There might be errors here due to new obstacle number
                         if (latestObstacleCoordinates.get(obstacleNumber) != null && latestObstacleCoordinates.get(obstacleNumber)[0] == newObstacleCoord[0] && latestObstacleCoordinates.get(obstacleNumber)[1] == newObstacleCoord[1]) {
                             popup.setX(newObstacleCoord[0]-125);
-                            popup.setY(newObstacleCoord[1]-125);
+                            popup.setY(newObstacleCoord[1]+100);
                             clickedObstacleNumber = obstacleNumber;
+                            popup.bringToFront();
+                            editText.setText(String.valueOf(obstacleNumber));
                             popup.setVisibility(View.VISIBLE);
                         } else {
                             // If there was a change in coordinates
                             //SEND to RPI - if not a ®click!! - MESSAGE
-                            /*if (Constants.connected) {
+                            if (Constants.connected) {
                                 byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                                 BluetoothChat.writeMsg(bytes);
-                            }*/
+                            }
                         }
                         //saving the current obstacles
                         latestObstacleCoordinates.put(obstacleNumber, newObstacleCoord);
 
                         // MUST get from the map class to snap to grid - for the new image
+                        // this function!!!
+                        // raw column * cell size + (int) (map.getX()), raw row * cell size + (int) (map.getY())
                         curObstacleGrp.setX(newObstacleCoord[0]); //+ map.getX()); // SHOULD BE INBUILT!!
                         curObstacleGrp.setY(newObstacleCoord[1]); // + map.getY());
-                        printAllObstacleCoords();
                         curObstacleGrp.setVisibility(View.VISIBLE);
-                        map.generateObstacleInformationTableRows(obstacleInformationTable);
+                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
                         map.invalidate();
                         break;
                     default:
@@ -1459,10 +1508,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * when the drop of the obstacle is out of the map, move it to the original starting place
-         */
-        ViewGroup parentView = (ViewGroup) map.getParent();
         parentView.setOnDragListener(new View.OnDragListener() {
             // Outside to outside has errors
             @Override
@@ -1482,7 +1527,7 @@ public class MainActivity extends AppCompatActivity {
                         int obstacleNumber = -1;
                         if (tag instanceof String) {
                             String tagString = (String) tag;
-                            obstacleNumber = Integer.parseInt(tagString);
+                            obstacleNumber = parseInt(tagString);
                         } else if (tag instanceof Integer) {
                             int tagInteger = (int) tag;
                             obstacleNumber = tagInteger;
@@ -1490,7 +1535,7 @@ public class MainActivity extends AppCompatActivity {
                         if (map.obstacleInMap(obstacleNumber)) {
                             parentView.removeView(curObstacleGrp);
                             map.removeObstacle(obstacleNumber);
-                            map.generateObstacleInformationTableRows(obstacleInformationTable);
+                            map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
                             map.invalidate();
                         } else {
                             curObstacleGrp.setX(originalObstacleCoordinates2[0]);
@@ -1521,7 +1566,6 @@ public class MainActivity extends AppCompatActivity {
         // setting variables
         map.saveFacingWithRotation(rotation);
         map.setRobotMovement(direction);
-        map.setRobotReverse(reverseSwitch.isChecked());
         //actual movement
         map.moveRobot();
         map.invalidate();
@@ -1585,8 +1629,8 @@ public class MainActivity extends AppCompatActivity {
             targetTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         } else if (prefix.equals("android-ROBOT")) {
             //SET A MAX AND MIN!!! -- 8 feb
-            int col = Integer.parseInt(instructionList.get(1));
-            int row = Integer.parseInt(instructionList.get(2));
+            int col = parseInt(instructionList.get(1));
+            int row = parseInt(instructionList.get(2));
             if (col < 1) {
                 col = Math.max(col, 1);
             } else {
@@ -1612,21 +1656,6 @@ public class MainActivity extends AppCompatActivity {
             outputNotifView.setText(errorMsg);
             System.out.println("DOESNT WORK");
         }
-    }
-
-
-    /**
-     * convert the constraint layout obstacle to an index
-     * @param obstacle
-     * @return
-     */
-    public int getObstacleNumber(ConstraintLayout obstacle) {
-        for (int i = 0; i < obstacleViews.size(); i++) {
-            if (obstacle == obstacleViews.get(i)) {
-                return i + 1;
-            }
-        }
-        return -1;
     }
 
     /**
@@ -1672,7 +1701,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the TextView
         TextView newObstacleNumber = new TextView(this);
         newObstacleNumber.setId(View.generateViewId()); // Generate a unique ID for the view
-        newObstacleNumber.setTag(obstacleNumber);
+        newObstacleNumber.setTag(String.format("Obstacle %d text view", obstacleNumber));
         newObstacleNumber.setText(Integer.toString(obstacleNumber));
         newObstacleNumber.setTextColor(Color.WHITE);
         Typeface mainFont = ResourcesCompat.getFont(this, R.font.main_font);
@@ -1707,17 +1736,12 @@ public class MainActivity extends AppCompatActivity {
         constraintSet.applyTo(newObstacleGroup);
         // Add the child ConstraintLayout to its parent ConstraintLayout (assuming your parent ConstraintLayout has an ID)
         ConstraintLayout fullScreen = findViewById(R.id.fullScreen);
-        System.out.println("fullscreen");
-        System.out.println(fullScreen);
         fullScreen.addView(newObstacleGroup);
         constraintSet.clone(fullScreen);
-        // changed this
-        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.START, R.id.fullScreen, ConstraintSet.START);
-        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.TOP, R.id.fullScreen, ConstraintSet.TOP);
-        /*constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.START, R.id.generator, ConstraintSet.START);
+        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.START, R.id.generator, ConstraintSet.START);
         constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.END, R.id.generator, ConstraintSet.END);
         constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.TOP, R.id.mapView, ConstraintSet.BOTTOM);
-        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.BOTTOM, R.id.generator, ConstraintSet.TOP);*/
+        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.BOTTOM, R.id.generator, ConstraintSet.TOP);
         // Apply the constraints to the parent ConstraintLayout
         constraintSet.applyTo(fullScreen);
         // Insert into lists
