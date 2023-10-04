@@ -1052,7 +1052,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * finally works - resets all obstacles to the original coordinates
          */
-        ImageButton resetObstacles = (ImageButton) findViewById(R.id.resetObstacles);
+        Button resetObstacles = (Button) findViewById(R.id.resetObstacles);
         resetObstacles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1078,7 +1078,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //POPUP BUTTONS
-        ImageButton startRobot = (ImageButton) findViewById(R.id.start_robot);
+        Button startRobot = (Button) findViewById(R.id.start_robot);
         startRobot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
