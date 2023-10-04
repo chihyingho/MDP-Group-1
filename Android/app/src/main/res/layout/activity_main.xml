@@ -50,7 +50,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.803" />
 
-
         <view
             android:id="@+id/mapView"
             class="com.example.mdpandroidcontroller.MapArena"
@@ -84,18 +83,6 @@
             android:src="@drawable/pacman"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/reverse_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="Reverse"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/arrowRight"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/arrowRight"
-            app:layout_constraintTop_toBottomOf="@+id/arrowBack" />
 
         <ImageButton
             android:id="@+id/arrowForward"
@@ -260,8 +247,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:background="@color/black"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
@@ -271,7 +259,7 @@
 
             <Button
                 android:id="@+id/face_north"
-                android:layout_width="115dp"
+                android:layout_width="125dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
@@ -285,7 +273,7 @@
             <Button
                 android:id="@+id/face_east"
                 android:layout_width="30dp"
-                android:layout_height="115dp"
+                android:layout_height="125dp"
                 android:layout_marginRight="10dp"
                 android:padding="8dp"
                 android:text="East"
@@ -297,7 +285,7 @@
 
             <Button
                 android:id="@+id/face_south"
-                android:layout_width="115dp"
+                android:layout_width="125dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:padding="5dp"
@@ -311,7 +299,7 @@
             <Button
                 android:id="@+id/face_west"
                 android:layout_width="30dp"
-                android:layout_height="115dp"
+                android:layout_height="125dp"
                 android:layout_marginLeft="10dp"
                 android:padding="8dp"
                 android:text="West"
@@ -320,6 +308,29 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:fontFamily="@font/main_font"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:fontFamily="@font/main_font"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -533,7 +544,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/generator"
             app:layout_constraintEnd_toEndOf="@+id/generator"
             app:layout_constraintBottom_toTopOf="@+id/generator"
@@ -599,14 +610,6 @@
                     android:textSize="10sp"
                     android:padding="8dp"/>
 
-                <TextView
-                    android:id="@+id/pacbotGenerator"
-                    app:fontFamily="@font/main_font"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pacbot_generator"
-                    android:textColor="#FFF"
-                    android:textSize="10sp"
-                    android:padding="8dp"/>
             </TableRow>
         </TableLayout>
 
@@ -670,6 +673,13 @@
 
             </TableRow>
         </TableLayout>
+
+        <Button
+            android:id="@+id/preloadObstaclesButton"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preload Obstacles"/>
 
         <TableLayout
             android:id="@+id/btnTableLayout"

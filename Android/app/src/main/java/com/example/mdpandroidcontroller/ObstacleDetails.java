@@ -2,14 +2,14 @@ package com.example.mdpandroidcontroller;
 
 public class ObstacleDetails {
     enum ObstacleFace {
-        UNKNOWN,
+        NONE,
         NORTH,
         SOUTH,
         EAST,
         WEST
     }
     private int[] coordinates = new int[]{-1, -1};
-    private ObstacleFace face = ObstacleFace.UNKNOWN;
+    private ObstacleFace face = ObstacleFace.NONE;
     // getter and setter methods
     public void setCoordinates(int[] coordinates) {
         this.coordinates = coordinates;
