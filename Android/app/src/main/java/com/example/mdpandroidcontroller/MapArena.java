@@ -914,7 +914,7 @@ public class MapArena extends View { //implements Serializable
                 obstacleData[index][1] = details.getCoordinates()[0];
                 obstacleData[index][2] = details.getCoordinates()[1];
                 switch(details.getObstacleFace()){
-                    case UNKNOWN:
+                    case NONE:
                         obstacleData[index][3] = 0;
                         break;
                     case NORTH:
