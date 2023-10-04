@@ -621,7 +621,7 @@ public class MapArena extends View { //implements Serializable
             row = Math.min(row,ROW-1);
         }
         ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
-        obstacle.setCoordinates(new int[] {column, row});
+        obstacle.setCoordinates(new int[] {column-1, 19-row});
     }
 
     /**
