@@ -545,6 +545,10 @@ public class MapArena extends View { //implements Serializable
         return result;
     }
 
+
+
+
+
     /** its to make the old tracks
      * Saves the old robot coords and also resets the cell to the old one
      * (a little inefficient as most of the robot cells will still be robot)
@@ -557,7 +561,7 @@ public class MapArena extends View { //implements Serializable
             for (int y = oldRow - 2; y <= oldRow; y++)
                 cells[x][y].setType("explored");
     }
-
+    
 
     /**
      * Called when create cell called --> to set the size of the cells --> so that it will fit the size?
@@ -750,4 +754,20 @@ public class MapArena extends View { //implements Serializable
         return COL;
     }
 
+
+    //WAS USED FOR SERIALIZABLE
+    //private void writeObject(ObjectOutputStream out) throws IOException {
+    //    out.defaultWriteObject();
+    //    out.writeObject(context);
+    //    out.writeObject(attrs);
+    //}
+
+     //private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+     //    in.defaultReadObject();
+     //   context = (Context) in.readObject();
+     //   attrs = (AttributeSet) in.readObject();
+    //}
+
+
 }
+
