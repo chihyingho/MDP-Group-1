@@ -4,17 +4,23 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
@@ -95,7 +101,6 @@ public class MapArena extends View { //implements Serializable
         }
 
         drawGridAxes(canvas);
-        drawObstacles(canvas, obstacleCoord);
         if (getCanDrawRobot()) {
             drawRobot(canvas, curCoord);
         }
@@ -118,8 +123,7 @@ public class MapArena extends View { //implements Serializable
     }
 
     // Called whenever obstacles are placed, removed or moved
-    public void generateObstacleInformationTableRows(TableLayout obstacleInformationTable) {
-        System.out.println("generate obstacle information table rows");
+    public void generateObstacleInformationTableRows(TableLayout obstacleInformationTable, Map <Integer, ConstraintLayout> obstacleViews, ViewGroup mapParentView) {
         TableRow header = (TableRow) obstacleInformationTable.getChildAt(0);
         System.out.println(header);
         obstacleInformationTable.removeAllViews();
@@ -131,29 +135,60 @@ public class MapArena extends View { //implements Serializable
             obstacleNumberText.setText(String.valueOf(obstacleNumber));
             obstacleNumberText.setTextColor(Color.WHITE);
             obstacleNumberText.setTypeface(mainFont);
-            obstacleNumberText.setTextSize(15);
+            int textSize = 10;
+            obstacleNumberText.setTextSize(textSize);
+            obstacleNumberText.setPadding(0, 0, 0, 10);
             int[] obstacleCoordinates = obstacleDetails.getCoordinates();
             int xCoordinate = obstacleCoordinates[0];
             int yCoordinate = obstacleCoordinates[1];
-            TextView xCoordinateText = new TextView(this.getContext());
+            EditText xCoordinateText = new EditText(this.getContext());
+            xCoordinateText.setTextColor(Color.WHITE);
+            xCoordinateText.setText(String.valueOf(xCoordinate));
+            xCoordinateText.setTypeface(mainFont);
+            xCoordinateText.setTextSize(textSize);
+            xCoordinateText.setPadding(0, 0, 0, 10);
+            /*TextView xCoordinateText = new TextView(this.getContext());
             xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTextColor(Color.WHITE);
             xCoordinateText.setTypeface(mainFont);
-            xCoordinateText.setTextSize(15);
+            xCoordinateText.setTextSize(textSize);
+            xCoordinateText.setPadding(0, 0, 0, 10);*/
             TextView yCoordinateText = new TextView(this.getContext());
             yCoordinateText.setText(String.valueOf(yCoordinate));
             yCoordinateText.setTextColor(Color.WHITE);
-            yCoordinateText.setTextSize(15);
+            yCoordinateText.setTextSize(textSize);
             yCoordinateText.setTypeface(mainFont);
+            yCoordinateText.setPadding(0, 0, 0, 10);
             TextView faceText = new TextView(this.getContext());
             faceText.setText(getTargetFaceDisplayString(obstacleDetails.getObstacleFace()));
             faceText.setTextColor(Color.WHITE);
-            faceText.setTextSize(15);
+            faceText.setTextSize(textSize);
             faceText.setTypeface(mainFont);
+            faceText.setPadding(0, 0, 0, 10);
+            // Delete obstacle button
+            int desiredWidthInPixels = 14; // Replace with your desired width
+            int desiredHeightInPixels = 14; // Replace with your desired height
+            ImageButton deleteObstacleButton = new ImageButton(this.getContext());
+            deleteObstacleButton.setBackgroundColor(Color.BLACK);
+            Drawable originalDrawable = getResources().getDrawable(R.drawable.delete_button);
+            Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, desiredWidthInPixels, desiredHeightInPixels, true);
+            Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
+            deleteObstacleButton.setImageDrawable(scaledDrawable);
+            deleteObstacleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mapParentView.removeView(obstacleViews.get(obstacleNumber));
+                    removeObstacle(obstacleNumber);
+                    obstacleInformationTable.removeView(tableRow);
+                    invalidate();
+                }
+            });
             tableRow.addView(obstacleNumberText);
             tableRow.addView(xCoordinateText);
             tableRow.addView(yCoordinateText);
             tableRow.addView(faceText);
+            tableRow.addView(deleteObstacleButton);
             obstacleInformationTable.addView(tableRow);
         });
     }
@@ -174,7 +209,7 @@ public class MapArena extends View { //implements Serializable
                 displayString = "S";
                 break;
             case NONE:
-                displayString = "Unknown";
+                displayString = "None";
                 break;
         }
         return displayString;
@@ -241,13 +276,13 @@ public class MapArena extends View { //implements Serializable
 
     private void drawGridAxes(Canvas canvas) {
         black.setColor(Color.WHITE);
-        black.setTextSize(20);
+        black.setTextSize(13);
         black.setTypeface(mainFont);
         for (int x = 1; x <= COL; x++) {
             if (x > 9)
-                canvas.drawText(Integer.toString(x-1), cells[x][20].startX, cells[x][20].startY + (cellSize / 3), black);
+                canvas.drawText(Integer.toString(x-1), cells[x][20].startX, cells[x][20].startY + (cellSize / 3) + 5, black);
             else
-                canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 3), cells[x][20].startY + (cellSize / 3), black);
+                canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 3), cells[x][20].startY + (cellSize / 3) + 5, black);
         }
         for (int y = 0; y < ROW; y++) {
             if ((20 - y) > 10)
@@ -255,12 +290,6 @@ public class MapArena extends View { //implements Serializable
             else
                 canvas.drawText(Integer.toString(19 - y), cells[0][y].startX + (cellSize / 2.5f), cells[0][y].startY + (cellSize / 1.5f), black);
         }
-    }
-
-    public void drawObstacles(Canvas canvas, ArrayList<int[]> obstacles) {
-        obstacleInformation.forEach((obstacleNumber, obstacleDetails) -> {
-            int[] coordinates = obstacleDetails.getCoordinates();
-        });
     }
 
     /**
@@ -580,6 +609,7 @@ public class MapArena extends View { //implements Serializable
         setObstacleCoord(new int[] {column, row});
         ObstacleDetails newObstacleDetails = new ObstacleDetails();
         newObstacleDetails.setCoordinates(new int[] {column-1, convertRow(row)-1});
+        System.out.println(String.format("insert new obstacle coordinates: %d, %d", column-1, convertRow(row)-1));
         obstacleInformation.put(obstacleNumber, newObstacleDetails);
     }
 
@@ -621,7 +651,7 @@ public class MapArena extends View { //implements Serializable
             row = Math.min(row,ROW-1);
         }
         ObstacleDetails obstacle = obstacleInformation.get(obstacleNumber);
-        obstacle.setCoordinates(new int[] {column-1, 19-row});
+        obstacle.setCoordinates(new int[] {column-1, convertRow(row)-1});
     }
 
     /**
@@ -772,6 +802,12 @@ public class MapArena extends View { //implements Serializable
         //printObstacleCoord();
     }
 
+    public void changeObstacleNumber(int oldObstacleNumber, int newObstacleNumber) {
+        ObstacleDetails oldObstacleDetails = obstacleInformation.get(oldObstacleNumber);
+        obstacleInformation.remove(oldObstacleNumber);
+        obstacleInformation.put(newObstacleNumber, oldObstacleDetails);
+    }
+
     public boolean obstacleInMap(int obstacleNumber) {
         return obstacleInformation.containsKey(obstacleNumber);
     }
@@ -780,9 +816,6 @@ public class MapArena extends View { //implements Serializable
         ObstacleDetails obstacleDetails = obstacleInformation.get(obstacleNumber);
         System.out.println("Obstacle Number:");
         System.out.println(obstacleNumber);
-        // obstacleDetails is null
-        // why is removeObstacle called in the first place?
-        // Did I remember to add the first obstacle?
         int[] obstacleCoordinates = obstacleDetails.getCoordinates();
         System.out.println(String.format("X: %d, Y: %d", obstacleCoordinates[0], obstacleCoordinates[1]));
         cells[obstacleCoordinates[0]][obstacleCoordinates[1]].setType("unexplored");
