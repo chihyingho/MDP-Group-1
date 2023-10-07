@@ -1,0 +1,105 @@
+[ImageRec] [PC] Model Loaded: ../assets/best-pt/task1-yixuan-v1.pt
+[ImageRec] [PC] ImageZMQ Server Live at: tcp://192.168.1.12:5555
+         xmin       ymin        xmax        ymax  confidence  class name
+0  287.057281  274.16214  344.225769  345.635956    0.877334     20   31
+[ImageRec] [PC] Image 1 recognized: 31
+         xmin        ymin        xmax        ymax  confidence  class name
+0  189.076416  246.209488  256.796143  346.625153    0.943503      1   12
+[ImageRec] [PC] Image 2 recognized: 12
+         xmin        ymin        xmax        ymax  confidence  class name
+0  320.546631  265.195221  377.891083  333.019135    0.397989      6   17
+[ImageRec] [PC] Image 3 recognized: 17
+         xmin        ymin        xmax        ymax  confidence  class name
+0  207.079987  257.742767  260.428589  336.248474    0.938898      4   15
+[ImageRec] [PC] Image 4 recognized: 15
+         xmin        ymin        xmax        ymax  confidence  class name
+0  272.626648  267.700531  344.861572  325.748108    0.940063     21   32
+[ImageRec] [PC] Image 5 recognized: 32
+         xmin       ymin        xmax        ymax  confidence  class name
+0  332.144867  259.05777  412.968353  347.824036    0.926891     17   28
+[ImageRec] [PC] Image 6 recognized: 28
+         xmin        ymin        xmax        ymax  confidence  class name
+0  341.084198  272.548706  395.099152  341.668701    0.927928      3   14
+[ImageRec] [PC] Image 7 recognized: 14
+         xmin      ymin        xmax        ymax  confidence  class name
+0  310.942291  282.4758  349.648804  326.838013    0.784987     18   29
+[ImageRec] [PC] Image 8 recognized: 29
+
+---
+
+[ImageRec] [PC] Model Loaded: ../assets/best-pt/task1-yixuan-v1.pt
+[ImageRec] [PC] ImageZMQ Server Live at: tcp://192.168.1.12:5555
+         xmin        ymin        xmax        ymax  confidence  class name
+0  207.495697  268.244476  278.147522  325.154663    0.939975     21   32
+[ImageRec] [PC] Image 0 recognized: 32
+         xmin        ymin        xmax        ymax  confidence  class name
+0  174.896729  284.532684  219.047897  342.065125    0.909376      3   14
+[ImageRec] [PC] Image 1 recognized: 14
+         xmin        ymin       xmax        ymax  confidence  class name
+0  189.064041  277.145721  224.26384  328.438995    0.929376      4   15
+[ImageRec] [PC] Image 2 recognized: 15
+         xmin        ymin        xmax        ymax  confidence  class name
+0  197.874054  281.281830  228.304596  328.797028    0.907408      1   12
+1  365.724304  291.214691  391.409210  316.880737    0.879798     30   99
+[ImageRec] [PC] Image 3 recognized: 12
+         xmin        ymin        xmax        ymax  confidence  class name
+0  197.471146  280.156921  228.108170  327.931213    0.910002      1   12
+1  365.463165  289.945831  391.175171  315.821259    0.884128     30   99
+[ImageRec] [PC] Image 4 recognized: 12
+[ImageRec] [PC] No object detected!
+[ImageRec] [PC] No object detected!
+[ImageRec] [PC] No object detected!
+
+---
+
+[ImageRec] [PC] Model Loaded: ../assets/best-pt/task1-yixuan-v1.pt
+[ImageRec] [PC] ImageZMQ Server Live at: tcp://192.168.1.12:5555
+         xmin        ymin        xmax        ymax  confidence  class name
+0  279.461395  270.977814  327.175781  327.810913    0.939824     15   26
+[ImageRec] [PC] Image 1 recognized: 26
+         xmin        ymin        xmax        ymax  confidence  class name
+0  409.996582  290.763031  449.267517  327.711639    0.918858     27   38
+1  243.081909  249.848969  316.962769  355.019501    0.909231     14   25
+[ImageRec] [PC] Image 2 recognized: 38
+         xmin       ymin        xmax      ymax  confidence  class name
+0  277.229523  249.61908  335.768646  317.7258    0.886824     16   27
+[ImageRec] [PC] Image 3 recognized: 27
+         xmin        ymin        xmax        ymax  confidence  class name
+0  140.112671  273.717743  191.732483  333.487396    0.888169     19   30
+[ImageRec] [PC] Image 4 recognized: 30
+[ImageRec] [PC] No object detected!
+        xmin        ymin       xmax        ymax  confidence  class name
+0  35.136307  236.339996  97.013786  327.968597     0.95079      5   16
+[ImageRec] [PC] Image 6 recognized: 16
+       xmin        ymin       xmax       ymax  confidence  class name
+0  8.089707  272.325073  53.370411  328.01059    0.917991      9   20
+[ImageRec] [PC] Image 7 recognized: 20
+[ImageRec] [PC] No object detected!
+
+----
+
+[ImageRec] [PC] Model Loaded: ../assets/best-pt/task1-yixuan-v1.pt
+[ImageRec] [PC] ImageZMQ Server Live at: tcp://192.168.1.12:5555
+        xmin       ymin        xmax        ymax  confidence  class name
+0  287.11087  270.01062  333.854248  326.772034    0.922721     15   26
+[ImageRec] [PC] Image 1 recognized: 26
+         xmin        ymin        xmax        ymax  confidence  class name
+0  247.751923  253.096268  314.412170  352.040070    0.930767     14   25
+1  417.493927  291.238037  454.949219  327.892731    0.872015     27   38
+[ImageRec] [PC] Image 2 recognized: 25
+         xmin       ymin        xmax        ymax  confidence  class name
+0  336.194702  275.22113  408.580231  346.037323    0.945156     27   38
+[ImageRec] [PC] Image 3 recognized: 38
+         xmin        ymin        xmax        ymax  confidence  class name
+0  172.070496  276.339142  205.291809  325.008698    0.910952      2   13
+[ImageRec] [PC] Image 4 recognized: 13
+        xmin        ymin        xmax        ymax  confidence  class name
+0  266.63382  275.221832  307.382202  322.949768    0.890818      9   20
+[ImageRec] [PC] Image 5 recognized: 20
+[ImageRec] [PC] No object detected!
+        xmin        ymin        xmax        ymax  confidence  class name
+0  176.53862  268.167786  217.043716  313.095886    0.628569     16   27
+[ImageRec] [PC] Image 7 recognized: 27
+        xmin        ymin        xmax        ymax  confidence  class name
+0  262.60437  282.912476  300.307343  326.452118    0.863379     19   30
+[ImageRec] [PC] Image 8 recognized: 30
