@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static ConstraintLayout popup;
     private static ConstraintLayout robot_popup;
+
     private static int robotColPopup = 1;
     private static int robotRowPopup = 1;
     private static String robotFacingPopup = "N";
@@ -371,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                     newObstacle.setY(yCoordinate);
                     map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
                     map.invalidate();
-
                     // Notification
                     outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", newObstacleNumber, xMapCoordinate, yMapCoordinate);
                     outputNotifView.setText(outputNotif);
@@ -380,7 +380,6 @@ public class MainActivity extends AppCompatActivity {
                         BluetoothChat.writeMsg(bytes);
                     }
                     // Check that popup still opens (if branch)
-
                 }
             }
         }
@@ -1083,7 +1082,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //executeInstruction();
-                outputNotif = String.format("run");
+                outputNotif = String.format("BEGINNNN");
                 outputNotifView.setText(outputNotif);
 
                 if (Constants.connected) {
@@ -1248,6 +1247,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     int newObstacleNumber = Integer.parseInt(userInput);
                     if (!map.obstacleInMap(newObstacleNumber)) {
+                        Log.d("Main", userInput);
                         int oldObstacleNumber = Integer.parseInt(editText.getHint().toString());
                         map.changeObstacleNumber(oldObstacleNumber, newObstacleNumber);
                         map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
@@ -1359,10 +1359,10 @@ public class MainActivity extends AppCompatActivity {
                     outputNotifView.setText(outputNotif);
 
                     //SEND VALUE
-                    if (Constants.connected) {
+                    /*if (Constants.connected) {
                         byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                         BluetoothChat.writeMsg(bytes);
-                    }
+                    }*/
                 }
 
             }
@@ -1395,7 +1395,7 @@ public class MainActivity extends AppCompatActivity {
                         int yCoordinate = (int) dragEvent.getY();
                         System.out.println(String.format("dragged into map: x: %d, y: %d", xCoordinate, yCoordinate));
                         int[] obstacleCoordinates = map.calculateObstacleCoordinatesOnMap(xCoordinate, yCoordinate);
-                        String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]+1, 19-obstacleCoordinates[1]);
+                        String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]-1, 19-obstacleCoordinates[1]);
                         obstacleCoordinatesTextView.setX(xCoordinate);
                         obstacleCoordinatesTextView.setY(yCoordinate + 52);
                         obstacleCoordinatesTextView.setText(coordinatesNotification);
@@ -1449,11 +1449,13 @@ public class MainActivity extends AppCompatActivity {
                             while (obstacleViews.get(newObstacleNumber) != null) {
                                 newObstacleNumber++;
                             }
+                            Log.d("Main", Integer.toString(newObstacleNumber));
                             createNewObstacle(newObstacleNumber);
                             // Updates obstacleInformation and obstacleDetails
                             map.insertNewObstacleIntoArena(obstacleNumber, x, y);
                         }
                         // come back to this
+
                         int[] newObstCoordColRow = map.calculateCoordinates(x, y);
 
                         System.out.println("Notification values:");
@@ -1480,14 +1482,15 @@ public class MainActivity extends AppCompatActivity {
                             clickedObstacleNumber = obstacleNumber;
                             popup.bringToFront();
                             editText.setText(String.valueOf(obstacleNumber));
+                            editText.setHint(String.valueOf(obstacleNumber));
                             popup.setVisibility(View.VISIBLE);
                         } else {
                             // If there was a change in coordinates
                             //SEND to RPI - if not a ®click!! - MESSAGE
-                            if (Constants.connected) {
+                            /*if (Constants.connected) {
                                 byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                                 BluetoothChat.writeMsg(bytes);
-                            }
+                            }*/
                         }
                         //saving the current obstacles
                         latestObstacleCoordinates.put(obstacleNumber, newObstacleCoord);

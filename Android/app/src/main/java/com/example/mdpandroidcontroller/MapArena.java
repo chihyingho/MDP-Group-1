@@ -135,7 +135,7 @@ public class MapArena extends View { //implements Serializable
             obstacleNumberText.setText(String.valueOf(obstacleNumber));
             obstacleNumberText.setTextColor(Color.WHITE);
             obstacleNumberText.setTypeface(mainFont);
-            int textSize = 12;
+            int textSize = 10;
             obstacleNumberText.setTextSize(textSize);
             obstacleNumberText.setPadding(0, 0, 0, 10);
             int[] obstacleCoordinates = obstacleDetails.getCoordinates();
@@ -166,8 +166,8 @@ public class MapArena extends View { //implements Serializable
             faceText.setTypeface(mainFont);
             faceText.setPadding(0, 0, 0, 10);
             // Delete obstacle button
-            int desiredWidthInPixels = 20; // Replace with your desired width
-            int desiredHeightInPixels = 20; // Replace with your desired height
+            int desiredWidthInPixels = 14; // Replace with your desired width
+            int desiredHeightInPixels = 14; // Replace with your desired height
             ImageButton deleteObstacleButton = new ImageButton(this.getContext());
             deleteObstacleButton.setBackgroundColor(Color.BLACK);
             Drawable originalDrawable = getResources().getDrawable(R.drawable.delete_button);
@@ -276,13 +276,13 @@ public class MapArena extends View { //implements Serializable
 
     private void drawGridAxes(Canvas canvas) {
         black.setColor(Color.WHITE);
-        black.setTextSize(20);
+        black.setTextSize(13);
         black.setTypeface(mainFont);
         for (int x = 1; x <= COL; x++) {
             if (x > 9)
-                canvas.drawText(Integer.toString(x-1), cells[x][20].startX, cells[x][20].startY + (cellSize / 3), black);
+                canvas.drawText(Integer.toString(x-1), cells[x][20].startX, cells[x][20].startY + (cellSize / 3) + 5, black);
             else
-                canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 3), cells[x][20].startY + (cellSize / 3), black);
+                canvas.drawText(Integer.toString(x-1), cells[x][20].startX + (cellSize / 3), cells[x][20].startY + (cellSize / 3) + 5, black);
         }
         for (int y = 0; y < ROW; y++) {
             if ((20 - y) > 10)
