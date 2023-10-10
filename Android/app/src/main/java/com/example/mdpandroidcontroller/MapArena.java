@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -120,7 +122,7 @@ public class MapArena extends View { //implements Serializable
     }
 
     // Called whenever obstacles are placed, removed or moved
-    public void generateObstacleInformationTableRows(TableLayout obstacleInformationTable, Map <Integer, ConstraintLayout> obstacleViews, ViewGroup mapParentView) {
+    public void generateObstacleInformationTableRows(TableLayout obstacleInformationTable, Map <Integer, ConstraintLayout> obstacleViews, ViewGroup mapParentView, TextView outputNotifView, Map<Integer, int[]> latestObstacleCoordinates) {
         TableRow header = (TableRow) obstacleInformationTable.getChildAt(0);
         System.out.println(header);
         obstacleInformationTable.removeAllViews();
@@ -144,13 +146,7 @@ public class MapArena extends View { //implements Serializable
             xCoordinateText.setTypeface(mainFont);
             xCoordinateText.setTextSize(textSize);
             xCoordinateText.setPadding(30, 0, 25, 2);
-            /*TextView xCoordinateText = new TextView(this.getContext());
-            xCoordinateText.setText(String.valueOf(xCoordinate));
-            xCoordinateText.setTextColor(Color.WHITE);
-            xCoordinateText.setTypeface(mainFont);
-            xCoordinateText.setTextSize(textSize);
-            xCoordinateText.setPadding(0, 0, 0, 10);*/
-            TextView yCoordinateText = new TextView(this.getContext());
+            EditText yCoordinateText = new EditText(this.getContext());
             yCoordinateText.setText(String.valueOf(yCoordinate));
             yCoordinateText.setTextColor(Color.WHITE);
             yCoordinateText.setTextSize(textSize);
@@ -172,6 +168,14 @@ public class MapArena extends View { //implements Serializable
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, desiredWidthInPixels, desiredHeightInPixels, true);
             Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
             deleteObstacleButton.setImageDrawable(scaledDrawable);
+            // Save obstacle co-ordinates
+            ImageButton saveCoordinatesButton = new ImageButton(this.getContext());
+            saveCoordinatesButton.setBackgroundColor(Color.BLACK);
+            Drawable saveIcon = getResources().getDrawable(R.drawable.save_icon);
+            Bitmap saveIconBitmap = ((BitmapDrawable) saveIcon).getBitmap();
+            Bitmap scaledSaveIconBitmap = Bitmap.createScaledBitmap(saveIconBitmap, desiredWidthInPixels, desiredHeightInPixels, true);
+            Drawable scaledSaveIconDrawable = new BitmapDrawable(getResources(), scaledSaveIconBitmap);
+            saveCoordinatesButton.setImageDrawable(scaledSaveIconDrawable);
             deleteObstacleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,11 +185,33 @@ public class MapArena extends View { //implements Serializable
                     invalidate();
                 }
             });
+            saveCoordinatesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String mapXCoordinate = xCoordinateText.getText().toString();
+                    String mapYCoordinate = yCoordinateText.getText().toString();
+                    int newXCoordinate = (int) (((Integer.parseInt(mapXCoordinate) + 1) * cellSize) + getX());
+                    int newYCoordinate = (int) (((19 - Integer.parseInt(mapYCoordinate)) * cellSize) + getY());
+                    updateObstacleCoordinatesInArena(obstacleNumber, newXCoordinate, newYCoordinate);
+                    String outputNotification = String.format("Obstacle: %d, Col: %s, Row: %s", obstacleNumber, mapXCoordinate, mapYCoordinate);
+                    outputNotifView.setText(outputNotification);
+                    ViewGroup obstacle = obstacleViews.get(obstacleNumber);
+                    obstacle.setX(newXCoordinate);
+                    obstacle.setY(newYCoordinate);
+                    latestObstacleCoordinates.put(obstacleNumber, new int[] {newXCoordinate, newYCoordinate});
+                    if (Constants.connected) {
+                        byte[] bytes = outputNotification.getBytes(Charset.defaultCharset());
+                        BluetoothChat.writeMsg(bytes);
+                    }
+                    invalidate();
+                }
+            });
             tableRow.addView(obstacleNumberText);
             tableRow.addView(xCoordinateText);
             tableRow.addView(yCoordinateText);
             tableRow.addView(faceText);
             tableRow.addView(deleteObstacleButton);
+            tableRow.addView(saveCoordinatesButton);
             obstacleInformationTable.addView(tableRow);
         });
     }
@@ -604,6 +630,7 @@ public class MapArena extends View { //implements Serializable
         return obstacle.getCoordinates();
     }
 
+    // Takes drag x and drag y and
     public int[] calculateCoordinates(int x, int y) {
         int column = (int) Math.floor(x / cellSize);
         int row = (int) Math.floor(y / cellSize);
