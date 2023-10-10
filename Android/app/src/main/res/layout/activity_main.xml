@@ -394,24 +394,15 @@
                 android:id="@+id/saveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
-                android:text="Save"
-                android:fontFamily="@font/main_font"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-=======
                 android:backgroundTint="@color/red"
                 android:fontFamily="@font/main_font"
                 android:text="Save"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
->>>>>>> 1dafd792b87ddfd94ac8ead9d3785c5209233f37
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window_robot"
@@ -768,12 +759,15 @@
             </TableRow>
         </TableLayout>
 
-        <Button
-            android:id="@+id/preloadObstaclesButton"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+        <Spinner
+            android:id="@+id/numberOfPreloadedObstacles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Preload Obstacles"/>
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="213dp" />
 
         <TableLayout
             android:id="@+id/btnTableLayout"

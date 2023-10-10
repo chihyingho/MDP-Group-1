@@ -333,18 +333,30 @@ public class MainActivity extends AppCompatActivity {
         obstacleFaceViews2.put(1, initialObstacleFace);
         obstacleTextViews.put(1, initialObstacleId);
         Button preloadObstaclesButton = (Button) findViewById(R.id.preloadObstaclesButton);
+        Spinner spinner = findViewById(R.id.numberOfPreloadedObstacles);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.number_of_obstacles_to_preload,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         // duplicate? check that not null?
         ViewGroup parentView = (ViewGroup) map.getParent();
         preloadObstaclesButton.setOnClickListener(new View.OnClickListener() {
             // come back to this
             @Override
             public void onClick(View view) {
-                int numberOfObstacles = 1;
-                // Select number of obstacles
-                // Generate obstacle coordinates --> last column, alternate row,
-                // Check if coordinates have been occupied --> obstacleDetails --> coordinates
-                // bugs with the save button
+                String userInput = spinner.getSelectedItem().toString();
+                int numberOfObstacles = 0;
+                try {
+                    numberOfObstacles = Integer.parseInt(userInput);}
+                catch (NumberFormatException e) {
+                    numberOfObstacles = 0;
+                }
                 int mapCellSize = (int) map.getCellSize();
+                int xMapCoordinate = 19;
+                int yMapCoordinate = 1;
                 for (int j = 0; j < numberOfObstacles; j++) {
                     int newObstacleNumber = obstacleViews.size() + 1;
                     while (obstacleViews.get(newObstacleNumber) != null) {
@@ -362,8 +374,6 @@ public class MainActivity extends AppCompatActivity {
                     constraintSet.connect(newObstacle.getId(), ConstraintSet.TOP, R.id.fullScreen, ConstraintSet.TOP);
                     // Apply the constraints to the parent ConstraintLayout
                     constraintSet.applyTo(fullScreen);
-                    int xMapCoordinate = 5;
-                    int yMapCoordinate = 5;
                     int xCoordinate = ((xMapCoordinate + 1) * mapCellSize) + (int) map.getX();
                     int yCoordinate = ((19 - yMapCoordinate) * mapCellSize) + (int) map.getY();
                     map.insertNewObstacleIntoArena(newObstacleNumber, xCoordinate, yCoordinate);
@@ -379,6 +389,7 @@ public class MainActivity extends AppCompatActivity {
                         byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                         BluetoothChat.writeMsg(bytes);
                     }
+                    yMapCoordinate += 2;
                     // Check that popup still opens (if branch)
                 }
             }
@@ -423,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
                 // save original coords of obstacles
                 originalObstacleCoordinates2 = new int[] {initialObstacleGrp.getLeft(), initialObstacleGrp.getTop()};
                 System.out.println(String.format("Original Obstacle Coordinates, X: %d, Y: %d", originalObstacleCoordinates2[0], originalObstacleCoordinates2[1]));
-                reset();
+                reset(obstacleInformationTable, parentView);
             }
         });
 
@@ -1048,6 +1059,7 @@ public class MainActivity extends AppCompatActivity {
         };*/
         initialObstacleGrp.setOnTouchListener(obstacleOnTouchListener);
 
+
         /**
          * finally works - resets all obstacles to the original coordinates
          */
@@ -1055,7 +1067,7 @@ public class MainActivity extends AppCompatActivity {
         resetObstacles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reset();
+                reset(obstacleInformationTable, parentView);
             }
         });
 
@@ -1576,6 +1588,19 @@ public class MainActivity extends AppCompatActivity {
         trackRobot();
     }
 
+    public void reset(TableLayout obstacleInformationTable, ViewGroup parentView) {
+        robot.setVisibility(View.INVISIBLE);
+        for (int obstacleNumber : obstacleViews.keySet()) {
+            ConstraintLayout obstacleViewGroup = obstacleViews.get(obstacleNumber);
+            parentView.removeView(obstacleViewGroup);
+        }
+        map.removeAllObstacles();
+        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+        obstacleViews.clear();
+        map.setMapAsUnexplored();
+        map.invalidate();
+    }
+
     /** RUNS EVERYTIME robot moves!!
      * Purpose is to track the image of the robot to the current coord of the robot in map class. and follows the right rotation
      * The robot will be paired accordingly
@@ -1763,21 +1788,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    public void reset() {
-        map.removeAllObstacles();
-
-
-        //TO REMOVE THE ROBOT ALSO
-        //map.setCanDrawRobot(false);
-        //robot.setVisibility(View.INVISIBLE);
-        //map.setOldRobotCoord(map.getCurCoord()[0],map.getCurCoord()[1]);
-        //robot_popup.setVisibility(View.INVISIBLE);
-
-        map.reset();   //remove all cells.
-        map.invalidate();
-    }
-
 
     public void setInstruction(String receivedInstruction) {
         this.instruction = receivedInstruction;
