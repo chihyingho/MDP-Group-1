@@ -67,7 +67,7 @@ public class MapArena extends View { //implements Serializable
     public MapArena(Context c) {
         super(c);
         black.setStyle(Paint.Style.FILL_AND_STROKE);
-        unexploredCellColor.setColor(0xFFe2f2fc); // light teal: 0xFFD4F6F2
+        unexploredCellColor.setColor(Color.BLACK); // light teal: 0xFFD4F6F2
         robotColor.setColor(Color.RED); //GREEN
         lineColor.setColor(0xFFBDBDBD); // white / 0xFF757575 / 0xFFBDBDBD LIGHTER
     }
@@ -101,9 +101,6 @@ public class MapArena extends View { //implements Serializable
         }
 
         drawGridAxes(canvas);
-        if (getCanDrawRobot()) {
-            drawRobot(canvas, curCoord);
-        }
         drawCell(canvas);
         lineColor.setColor(0xFFE20D0F);
         drawHorizontalLines(canvas);
@@ -261,17 +258,6 @@ public class MapArena extends View { //implements Serializable
     private void drawHorizontalLines(Canvas canvas) {
         for (int y = 0; y <= ROW; y++)
             canvas.drawLine(cells[1][y].startX, cells[1][y].startY - (cellSize / 30), cells[ROW][y].endX, cells[15][y].startY - (cellSize / 30), lineColor); // black lines
-    }
-
-
-
-    public void drawRobot(Canvas canvas, int[] curCoord) {
-        int androidRowCoord = this.convertRow(curCoord[1]);
-
-        // for the shading of square - USED TO BE -1 to + 1
-        for (int x = curCoord[0]; x <= curCoord[0] + 2; x++)
-            for (int y = androidRowCoord - 2; y <= androidRowCoord; y++)
-                cells[x][y].setType("robot");
     }
 
     private void drawGridAxes(Canvas canvas) {
@@ -765,12 +751,6 @@ public class MapArena extends View { //implements Serializable
         }
     }
 
-    public void reset() {
-        for (int x = 0; x <= COL; x++)
-            for (int y = 0; y <= ROW; y++)
-                cells[x][y].setType("unexplored");
-    }
-
     private void setCellSize(float cellSize) {
         MapArena.cellSize = cellSize;
     }
@@ -822,22 +802,16 @@ public class MapArena extends View { //implements Serializable
         obstacleInformation.remove(obstacleNumber);
     }
 
-    public void printObstacleCoord() {
-        System.out.printf("total number of obstacles: %d \n", obstacleCoord.size());
-        for (int x = 0; x < obstacleCoord.size(); x++) {
-            System.out.printf("Obstacle %d |  X: %d, Y: %d\n", x+1, obstacleCoord.get(x)[0], obstacleCoord.get(x)[1]);
-        }
+    public void removeAllObstacles() {
+        obstacleInformation.clear();
     }
 
-    public void removeAllObstacles() {
-        // While there are still obstacle coordinates stored in obstacleCoord
-        while (obstacleCoord.size() >= 1) {
-            // Set the cells[x][y] as unexplored
-            cells[obstacleCoord.get(0)[0]][obstacleCoord.get(0)[1]].setType("unexplored");
-            // Remove the first obstacleCoord
-            removeObstacleCoord(obstacleCoord.get(0));
+    public void setMapAsUnexplored() {
+        for (int i = 1; i <= 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                cells[i][j].setType("unexplored");
+            }
         }
-        obstacleInformation.clear();
     }
 
     public ArrayList<int[]> getObstacleCoord() {

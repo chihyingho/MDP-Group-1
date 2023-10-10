@@ -29,12 +29,10 @@ public class Cell {
         this.paint = paint;
         this.type = type;
 
-
         black.setStyle(Paint.Style.FILL_AND_STROKE);
         obstacleColor.setColor(Color.YELLOW);
         robotColor.setColor(Color.CYAN);
         testColor.setColor(Color.RED);
-        // i changed this: unexploredCellColor.setColor(0xFFe2f2fc);
         unexploredCellColor.setColor(Color.BLACK);
         exploredCellColor.setColor(Color.WHITE);
     }

@@ -144,7 +144,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.803" />
 
-
         <view
             android:id="@+id/mapView"
             class="com.example.mdpandroidcontroller.MapArena"
@@ -299,7 +298,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window_robot"
@@ -664,6 +662,16 @@
 
             </TableRow>
         </TableLayout>
+
+        <Spinner
+            android:id="@+id/numberOfPreloadedObstacles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="213dp" />
 
         <TableLayout
             android:id="@+id/btnTableLayout"
