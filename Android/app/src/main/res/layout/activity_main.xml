@@ -11,6 +11,8 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:backgroundTint="@color/red"
         android:theme="@style/Theme.MDPAndroidController.AppBarOverlay">
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -21,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/red"
+        android:backgroundTint="@color/red"
         app:layout_anchor="@+id/toolbar"
         app:layout_anchorGravity="center"
         app:popupTheme="@style/Theme.MDPAndroidController.PopupOverlay" />
@@ -33,7 +36,17 @@
         android:id="@+id/fullScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@drawable/metal_look"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="center">
+
+        <ImageView
+            android:id="@+id/obstacle_background"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:src="@drawable/border"
+            app:layout_constraintBottom_toTopOf="@+id/generator"
+            app:layout_constraintStart_toStartOf="@+id/generator" />
 
         <ImageButton
             android:id="@+id/calculate"
@@ -53,56 +66,65 @@
 
         <Button
             android:id="@+id/start_robot"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="45dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
             android:background="@null"
             android:backgroundTint="#E40F0F"
             android:clickable="true"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:drawableTint="@color/white"
             android:focusable="true"
+            android:fontFamily="monospace"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
             android:scaleType="fitCenter"
             android:text="BEGIN"
-            android:textSize="9dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/generator" />
 
         <Button
             android:id="@+id/resetObstacles"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="45dp"
             android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
             android:background="@null"
             android:backgroundTint="#E80F0F"
             android:clickable="true"
+            android:drawableLeft="@android:drawable/ic_popup_sync"
+            android:drawableTint="@color/white"
             android:focusable="true"
+            android:fontFamily="monospace"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
             android:scaleType="fitCenter"
             android:text="RESET"
-            android:textSize="9dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/preloadObstaclesButton" />
 
         <Button
             android:id="@+id/connect_button"
-            android:layout_width="wrap_content"
+            android:layout_width="126dp"
             android:layout_height="45dp"
             android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
             android:background="@null"
             android:backgroundTint="#E81111"
             android:clickable="true"
+            android:drawableLeft="@android:drawable/stat_sys_data_bluetooth"
+            android:drawableTint="@color/white"
             android:focusable="true"
+            android:fontFamily="monospace"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
             android:scaleType="fitCenter"
             android:text="BLUETOOTH"
-            android:textSize="8dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resetObstacles" />
 
@@ -111,6 +133,7 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:minWidth="200dp"
             android:text="Discoverable"
             android:visibility="gone"
@@ -127,8 +150,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/border_3"
             android:visibility="visible"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,182 +164,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/obstacle_coordinates"
-            app:fontFamily="@font/main_font"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="25sp"
+            app:fontFamily="monospace"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/robotcar"
             android:layout_width="138px"
             android:layout_height="138px"
             android:background="#000000"
-            android:src="@drawable/pacman"
+            android:src="@drawable/car_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/arrowForward"
+        <Switch
+            android:id="@+id/reverse_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
-            android:layout_marginEnd="18dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxHeight="50dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_up"
-            app:layout_constraintEnd_toStartOf="@+id/arrowNE"
-            app:layout_constraintTop_toBottomOf="@+id/generator" />
-
-        <ImageButton
-            android:id="@+id/arrowBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="61dp"
-            android:layout_marginEnd="18dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxHeight="50dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_down"
-            app:layout_constraintEnd_toStartOf="@+id/arrowSE"
-            app:layout_constraintTop_toBottomOf="@+id/arrowForward" />
-
-        <ImageButton
-            android:id="@+id/arrowLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="69dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="50dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_left"
-            app:layout_constraintEnd_toStartOf="@+id/arrowRight"
-            app:layout_constraintTop_toBottomOf="@+id/arrowNW" />
-
-        <ImageButton
-            android:id="@+id/arrowRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="29dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="50dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_right"
-            app:layout_constraintEnd_toStartOf="@+id/sendMap"
-            app:layout_constraintTop_toBottomOf="@+id/arrowNE" />
-
-        <ImageButton
-            android:id="@+id/arrowNE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="51dp"
-            android:layout_marginEnd="48dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="40dp"
-            android:maxHeight="40dp"
-            android:rotation="45"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_up"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/start_robot"
-            app:layout_constraintTop_toBottomOf="@+id/generator" />
-
-        <ImageButton
-            android:id="@+id/arrowSE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="48dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="40dp"
-            android:maxHeight="40dp"
-            android:rotation="135"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_up"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/resetObstacles"
-            app:layout_constraintTop_toBottomOf="@+id/arrowRight" />
-
-        <ImageButton
-            android:id="@+id/arrowSW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="13dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="40dp"
-            android:maxHeight="40dp"
-            android:rotation="225"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_up"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/arrowBack"
-            app:layout_constraintTop_toBottomOf="@+id/arrowLeft" />
-
-        <ImageButton
-            android:id="@+id/arrowNW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="11dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:maxWidth="40dp"
-            android:maxHeight="40dp"
-            android:rotation="315"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pixelated_arrow_up"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/arrowForward"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toStartOf="@+id/arrowLeft"
-            app:layout_constraintTop_toBottomOf="@+id/generator" />
+            android:text="Reverse"
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/sendMap"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="45dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="#FF0000"
+            android:drawableLeft="@android:drawable/ic_menu_send"
+            android:drawableTint="@color/white"
+            android:fontFamily="monospace"
             android:text="Send Map"
             android:textColor="@color/white"
-            android:textSize="9dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_robot" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/popup_window"
-            android:background="@color/black"
             android:layout_width="220dp"
             android:layout_height="220dp"
             android:layout_marginBottom="32dp"
+            android:background="@drawable/rectangle_background"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -328,7 +220,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/main_font"
+                android:fontFamily="monospace"
                 android:padding="5dp"
                 android:text="North"
                 android:textColor="@color/white"
@@ -342,7 +234,7 @@
                 android:layout_height="125dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/main_font"
+                android:fontFamily="monospace"
                 android:padding="8dp"
                 android:text="East"
                 android:textColor="@color/white"
@@ -356,7 +248,7 @@
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/main_font"
+                android:fontFamily="monospace"
                 android:padding="5dp"
                 android:text="South"
                 android:textColor="@color/white"
@@ -370,7 +262,7 @@
                 android:layout_height="125dp"
                 android:layout_marginLeft="10dp"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/main_font"
+                android:fontFamily="monospace"
                 android:padding="8dp"
                 android:text="West"
                 android:textColor="@color/white"
@@ -380,22 +272,25 @@
 
             <EditText
                 android:id="@+id/editText"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_bias="0.5"
-                android:fontFamily="@font/main_font"
-                android:textColor="#FFFFFF"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/rectangle_background_2"
+                android:fontFamily="monospace"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/main_font"
+                android:fontFamily="monospace"
                 android:text="Save"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -410,6 +305,7 @@
             android:layout_height="200dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/rectangle_background"
+            android:elevation="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/mapView"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -421,8 +317,10 @@
                 android:layout_width="90dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="monospace"
                 android:padding="5dp"
                 android:text="Confirm"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/remove_robot"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -432,8 +330,10 @@
                 android:layout_width="90dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="monospace"
                 android:padding="5dp"
                 android:text="Remove"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/finalise_robot" />
@@ -447,8 +347,9 @@
                 android:layout_marginBottom="100dp"
                 android:gravity="center_horizontal|top"
                 android:text="Robot Coordinates"
-                app:fontFamily="@font/main_font"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:fontFamily="monospace"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -456,10 +357,10 @@
 
             <Spinner
                 android:id="@+id/spinner_robot_x"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:textColor="#000000"
+                android:background="@drawable/rectangle_background_2"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/finalise_robot"
                 app:layout_constraintEnd_toStartOf="@+id/spinner_robot_y"
                 app:layout_constraintStart_toStartOf="parent"
@@ -467,8 +368,9 @@
 
             <Spinner
                 android:id="@+id/spinner_robot_y"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_background_2"
                 app:layout_constraintBottom_toTopOf="@+id/finalise_robot"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/spinner_robot_x"
@@ -476,8 +378,9 @@
 
             <Spinner
                 android:id="@+id/spinner_robot_facing"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_background_2"
                 app:layout_constraintBottom_toTopOf="@+id/spinner_robot_y"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -488,9 +391,11 @@
 
         <TableLayout
             android:id="@+id/textTableLayout"
-            android:layout_width="306dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_3"
             android:stretchColumns="0,1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -503,20 +408,21 @@
 
                 android:id="@+id/firstRow"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/border">
 
                 <!-- first element of the row: 100,223-->
 
                 <TextView
                     android:id="@+id/notificationsHeader"
-                    android:layout_height="15dp"
+                    android:layout_height="18dp"
                     android:layout_span="2"
                     android:text="Notifications"
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     android:textStyle="bold"
-                    app:fontFamily="@font/main_font"
+                    app:fontFamily="monospace"
                     app:layout_anchorGravity="center" />
 
 
@@ -526,19 +432,20 @@
 
                 android:id="@+id/secondRow"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/border">
 
                 <!-- first element of the row: 100,223-->
 
                 <TextView
                     android:id="@+id/notifications"
-                    android:layout_height="30dp"
+                    android:layout_height="19dp"
                     android:layout_span="2"
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="8sp"
-                    app:fontFamily="@font/main_font"
+                    android:textSize="12sp"
+                    app:fontFamily="monospace"
                     app:layout_anchorGravity="center" />
 
 
@@ -548,31 +455,24 @@
 
                 android:id="@+id/thirdRow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:orientation="vertical">
 
                 <!-- first element of the row-->
                 <TextView
                     android:id="@+id/robot_location_header"
                     android:layout_height="15dp"
+                    android:layout_span="2"
+                    android:background="@drawable/border"
                     android:text="@string/robot_location_header"
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     android:textStyle="bold"
-                    app:fontFamily="@font/main_font"
+                    app:fontFamily="monospace"
                     app:layout_anchorGravity="center"
                     app:layout_constraintVertical_bias="0.701" />
-
-                <TextView
-                    android:id="@+id/robot_facing_header"
-                    android:layout_height="15dp"
-                    android:text="@string/robot_facing_header"
-                    android:textAlignment="center"
-                    android:textColor="#FFF"
-                    android:textSize="10dp"
-                    android:textStyle="bold"
-                    app:fontFamily="@font/main_font"
-                    app:layout_anchorGravity="center" />
 
             </TableRow>
 
@@ -580,27 +480,22 @@
 
                 android:id="@+id/fourthRow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/border">
 
                 <!-- first element of the row-->
                 <TextView
                     android:id="@+id/robot_location"
-                    android:layout_height="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_span="2"
+                    android:background="@drawable/border"
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="10sp"
-                    app:fontFamily="@font/main_font"
+                    android:textSize="12sp"
+                    app:fontFamily="monospace"
                     app:layout_anchorGravity="center" />
-
-                <TextView
-                    android:id="@+id/robot_facing"
-                    android:layout_height="25dp"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textColor="#FFF"
-                    android:textSize="10sp"
-                    app:fontFamily="@font/main_font" />
 
             </TableRow>
 
@@ -609,36 +504,36 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/initialObstacle"
             android:layout_width="wrap_content"
-            android:tag="1"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/generator"
-            app:layout_constraintEnd_toEndOf="@+id/generator"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:tag="1"
             app:layout_constraintBottom_toTopOf="@+id/generator"
-            app:layout_constraintTop_toBottomOf="@+id/mapView"
-            >
+            app:layout_constraintEnd_toEndOf="@+id/generator"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="@+id/generator"
+            app:layout_constraintTop_toBottomOf="@+id/mapView">
 
             <ImageView
                 android:id="@+id/initialObstacleBox"
                 android:layout_width="34px"
                 android:layout_height="34px"
                 android:src="@drawable/blue_obstacle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/initialObstacleFace"
                 android:layout_width="34px"
                 android:layout_height="34px"
                 android:src="@drawable/blue_obstacle_face"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/initialObstacleId"
@@ -647,13 +542,12 @@
                 android:gravity="center_horizontal"
                 android:text="@string/obstacle1ID_text"
                 android:textColor="#FFFFFF"
-                android:textSize="8sp"
-                app:fontFamily="@font/main_font"
+                android:textSize="12sp"
+                app:fontFamily="monospace"
                 app:layout_constraintBottom_toBottomOf="@+id/initialObstacleFace"
                 app:layout_constraintEnd_toEndOf="@+id/initialObstacleFace"
                 app:layout_constraintStart_toStartOf="@+id/initialObstacleFace"
-                app:layout_constraintTop_toTopOf="@+id/initialObstacleFace"
-                />
+                app:layout_constraintTop_toTopOf="@+id/initialObstacleFace" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -673,88 +567,98 @@
                 <TextView
                     android:id="@+id/obstacleGenerator"
                     android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border"
                     android:padding="8dp"
                     android:text="@string/obstacle_generator"
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="9dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
                 <TextView
                     android:id="@+id/pacbotGenerator"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="94dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border"
                     android:padding="8dp"
                     android:text="@string/pacbot_generator"
                     android:textAlignment="center"
                     android:textColor="#FFF"
-                    android:textSize="8dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
+
             </TableRow>
         </TableLayout>
 
         <TableLayout
             android:id="@+id/obstacleInformation"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="@+id/textTableLayout"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/border"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTableLayout">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="15dp">
 
                 <TextView
+                    android:layout_height="23dp"
                     android:layout_weight="1"
-                    android:background="#000000"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="No."
                     android:textColor="#FFFFFF"
-                    android:textSize="10dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
                 <TextView
+                    android:layout_height="23dp"
                     android:layout_weight="1"
-                    android:background="#000000"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="Col"
                     android:textColor="#FFFFFF"
-                    android:textSize="10dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
                 <TextView
+                    android:layout_height="23dp"
                     android:layout_weight="1"
-                    android:background="#000000"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="Row"
                     android:textColor="#FFFFFF"
-                    android:textSize="10dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
                 <TextView
+                    android:layout_height="23dp"
                     android:layout_weight="1"
-                    android:background="#000000"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="Face"
                     android:textColor="#FFFFFF"
-                    android:textSize="10dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
                 <TextView
+                    android:layout_height="23dp"
                     android:layout_weight="1"
-                    android:background="#000000"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="X"
                     android:textColor="#FFFFFF"
-                    android:textSize="10dp"
-                    app:fontFamily="@font/main_font" />
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
 
             </TableRow>
         </TableLayout>
@@ -862,32 +766,199 @@
 
         <Button
             android:id="@+id/preloadObstaclesButton"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="45dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="#EF0C0C"
+            android:drawableLeft="@android:drawable/ic_menu_upload"
+            android:drawableTint="@color/white"
+            android:fontFamily="monospace"
             android:text="Preload"
-            android:textSize="9dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sendMap" />
 
         <ImageButton
             android:id="@+id/generateRobot"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="32dp"
             android:adjustViewBounds="true"
-            android:background="@null"
+            android:background="@drawable/border_2"
             android:clickable="true"
             android:focusable="true"
             android:maxWidth="40dp"
             android:maxHeight="40dp"
             android:scaleType="fitCenter"
             android:src="@drawable/generate_button"
-            app:tint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/generator"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#FFFFFF" />
+
+        <TableLayout
+            android:id="@+id/d_pad"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/border_4"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/connect_button"
+            app:layout_constraintTop_toTopOf="@+id/start_robot">
+
+            <TableRow
+                android:id="@+id/dpad_row1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/arrowNW"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="40dp"
+                    android:maxHeight="50dp"
+                    android:rotation="315"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_up"
+                    android:visibility="visible"
+                    tools:layout_editor_absoluteX="367dp"
+                    tools:layout_editor_absoluteY="808dp" />
+
+                <ImageButton
+                    android:id="@+id/arrowForward"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_up"
+                    tools:layout_editor_absoluteX="415dp"
+                    tools:layout_editor_absoluteY="808dp" />
+
+                <ImageButton
+                    android:id="@+id/arrowNE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
+                    android:rotation="45"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_up"
+                    android:visibility="visible"
+                    tools:layout_editor_absoluteX="463dp"
+                    tools:layout_editor_absoluteY="808dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dpad_row2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/arrowLeft"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_left"
+                    tools:layout_editor_absoluteX="367dp"
+                    tools:layout_editor_absoluteY="856dp" />
+
+                <ImageView
+                    android:id="@+id/blank"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@color/black" />
+
+                <ImageButton
+                    android:id="@+id/arrowRight"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_right"
+                    tools:layout_editor_absoluteX="463dp"
+                    tools:layout_editor_absoluteY="856dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/dpad_row3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/arrowSW"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
+                    android:rotation="225"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_up"
+                    android:visibility="visible"
+                    tools:layout_editor_absoluteX="367dp"
+                    tools:layout_editor_absoluteY="904dp" />
+
+                <ImageButton
+                    android:id="@+id/arrowBack"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_down"
+                    tools:layout_editor_absoluteX="415dp"
+                    tools:layout_editor_absoluteY="904dp" />
+
+                <ImageButton
+                    android:id="@+id/arrowSE"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
+                    android:rotation="135"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_arrow_up"
+                    android:visibility="visible"
+                    tools:layout_editor_absoluteX="463dp"
+                    tools:layout_editor_absoluteY="904dp" />
+            </TableRow>
+
+        </TableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,10 +14,10 @@
     <string name="obstacle_coordinates">X: , Y: </string>
     <string name="notifications">Notifications</string>
     <string name="notifications_header">Notifications</string>
-    <string name="robot_location_header">Robot Location</string>
+    <string name="robot_location_header">Robot Position</string>
     <string name="robot_facing_header">Robot Facing</string>
     <string name="obstacle_generator">Obstacle Generator</string>
-    <string name="pacbot_generator">PacBot Generator</string>
+    <string name="pacbot_generator">Robot Generator</string>
 
     <string-array name="number_of_obstacles_to_preload">
         <item>No.</item>

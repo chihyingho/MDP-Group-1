@@ -58,7 +58,7 @@ public class MapArena extends View { //implements Serializable
     private static int[] oldCoord = new int[]{-1, -1};
 
     private Paint black = new Paint();
-    Typeface mainFont = ResourcesCompat.getFont(getContext(), R.font.main_font);
+    Typeface mainFont = Typeface.MONOSPACE;
     private Paint lineColor = new Paint();
     private Paint unexploredCellColor = new Paint();
     private Paint robotColor = new Paint();
@@ -102,7 +102,7 @@ public class MapArena extends View { //implements Serializable
 
         drawGridAxes(canvas);
         drawCell(canvas);
-        lineColor.setColor(0xFF0000FF);
+        lineColor.setColor(0xFFE20D0F);
         drawHorizontalLines(canvas);
         drawVerticalLines(canvas);
     }
@@ -132,9 +132,9 @@ public class MapArena extends View { //implements Serializable
             obstacleNumberText.setText(String.valueOf(obstacleNumber));
             obstacleNumberText.setTextColor(Color.WHITE);
             obstacleNumberText.setTypeface(mainFont);
-            int textSize = 10;
+            int textSize = 12;
             obstacleNumberText.setTextSize(textSize);
-            obstacleNumberText.setPadding(0, 0, 0, 10);
+            obstacleNumberText.setPadding(30, 0, 30, 2);
             int[] obstacleCoordinates = obstacleDetails.getCoordinates();
             int xCoordinate = obstacleCoordinates[0];
             int yCoordinate = obstacleCoordinates[1];
@@ -143,7 +143,7 @@ public class MapArena extends View { //implements Serializable
             xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTypeface(mainFont);
             xCoordinateText.setTextSize(textSize);
-            xCoordinateText.setPadding(0, 0, 0, 10);
+            xCoordinateText.setPadding(30, 0, 25, 2);
             /*TextView xCoordinateText = new TextView(this.getContext());
             xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTextColor(Color.WHITE);
@@ -155,13 +155,13 @@ public class MapArena extends View { //implements Serializable
             yCoordinateText.setTextColor(Color.WHITE);
             yCoordinateText.setTextSize(textSize);
             yCoordinateText.setTypeface(mainFont);
-            yCoordinateText.setPadding(0, 0, 0, 10);
+            yCoordinateText.setPadding(30, 0, 25, 2);
             TextView faceText = new TextView(this.getContext());
             faceText.setText(getTargetFaceDisplayString(obstacleDetails.getObstacleFace()));
             faceText.setTextColor(Color.WHITE);
             faceText.setTextSize(textSize);
             faceText.setTypeface(mainFont);
-            faceText.setPadding(0, 0, 0, 10);
+            faceText.setPadding(30, 0, 30, 2);
             // Delete obstacle button
             int desiredWidthInPixels = 14; // Replace with your desired width
             int desiredHeightInPixels = 14; // Replace with your desired height
@@ -262,7 +262,7 @@ public class MapArena extends View { //implements Serializable
 
     private void drawGridAxes(Canvas canvas) {
         black.setColor(Color.WHITE);
-        black.setTextSize(13);
+        black.setTextSize(16);
         black.setTypeface(mainFont);
         for (int x = 1; x <= COL; x++) {
             if (x > 9)
