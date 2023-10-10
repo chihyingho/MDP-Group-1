@@ -187,13 +187,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static TextView outputNotifView; // for all the notifications!!
     private static TextView locationNotifView;
-    private static TextView facingNotifView;
-
     private static String outputNotif;
     private static String locationNotif;
-    private static String facingNotif;
-
-    //private static Boolean connected;
 
     private static String instruction = "Robot, 4, 10, S";
 
@@ -321,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
         MyObserver observer = new MyObserver(subject);
         Constants constants = new Constants(subject);
 
-        // Chih Ying added this
         ConstraintLayout initialObstacleGrp = (ConstraintLayout) findViewById(R.id.initialObstacle);
         ImageView initialObstacleBox = (ImageView) findViewById(R.id.initialObstacleBox);
         ImageView initialObstacleFace = (ImageView) findViewById(R.id.initialObstacleFace);
@@ -329,6 +323,9 @@ public class MainActivity extends AppCompatActivity {
         initialObstacleId.setTag("Obstacle 1 text view");
         TextView obstacleCoordinatesTextView = (TextView) findViewById(R.id.obstacleCoordinates);
         obstacleViews.put(1, initialObstacleGrp);
+        System.out.println(initialObstacleGrp);
+        System.out.println("obstacle views");
+        System.out.println(obstacleViews.size());
         obstacleBoxViews.add(initialObstacleBox);
         obstacleFaceViews2.put(1, initialObstacleFace);
         obstacleTextViews.put(1, initialObstacleId);
@@ -341,10 +338,8 @@ public class MainActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        // duplicate? check that not null?
         ViewGroup parentView = (ViewGroup) map.getParent();
         preloadObstaclesButton.setOnClickListener(new View.OnClickListener() {
-            // come back to this
             @Override
             public void onClick(View view) {
                 String userInput = spinner.getSelectedItem().toString();
@@ -380,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                     latestObstacleCoordinates.put(newObstacleNumber, new int[] {xCoordinate, yCoordinate});
                     newObstacle.setX(xCoordinate);
                     newObstacle.setY(yCoordinate);
-                    map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                    map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
                     map.invalidate();
                     // Notification
                     outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", newObstacleNumber, xMapCoordinate, yMapCoordinate);
@@ -1261,7 +1256,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Main", userInput);
                         int oldObstacleNumber = Integer.parseInt(editText.getHint().toString());
                         map.changeObstacleNumber(oldObstacleNumber, newObstacleNumber);
-                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
                         ConstraintLayout oldObstacleView = obstacleViews.get(oldObstacleNumber);
                         oldObstacleView.setTag(Integer.toString(newObstacleNumber));
                         for (int i = 0; i < oldObstacleView.getChildCount(); i++) {
@@ -1359,7 +1354,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
                 System.out.println(String.format("obstacleNum %d", obstacleNumber));
                 int[] currentColRow = map.getColRowFromXY(obstacleGroup.getX(), obstacleGroup.getY(), map.getLeft(), map.getTop());
 
@@ -1383,7 +1378,15 @@ public class MainActivity extends AppCompatActivity {
         eastFace.setOnClickListener(onClickFaceListener);
         southFace.setOnClickListener(onClickFaceListener);
         westFace.setOnClickListener(onClickFaceListener);
-
+        // Save button
+        // Come back to this
+        // map.removeObstacleUsingCoord(pastX - map.getX() + map.getCellSize() / 2, pastY - map.getY() + map.getCellSize() / 2);
+        // map.updateObstacleCoordinatesInArena(obstacleNumber, x, y);
+        // outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", obstacleNumber, col, row);
+        // outputNotifView.setText(outputNotif);
+        // convert the x and y back to raw, multiply by cell size + getX and getY
+        // curObstacleGrp.setX(newObstacleCoord[0]); //+ map.getX()); // SHOULD BE INBUILT!!
+        // curObstacleGrp.setY(newObstacleCoord[1]);
 
         /** WHOLE Dropping segment of the obstacles on the map - Do clean up q hard to understand! lots of considerations.
          *
@@ -1395,7 +1398,6 @@ public class MainActivity extends AppCompatActivity {
                 int action = dragEvent.getAction();
                 switch (action) {
                     case DragEvent.ACTION_DRAG_STARTED:
-                        // Do nothing
                         ConstraintLayout currentObstacleGrp = (ConstraintLayout) dragEvent.getLocalState();
                         currentObstacleGrp.setVisibility(View.GONE);
                         break;
@@ -1465,7 +1467,6 @@ public class MainActivity extends AppCompatActivity {
                             // Updates obstacleInformation and obstacleDetails
                             map.insertNewObstacleIntoArena(obstacleNumber, x, y);
                         }
-                        // come back to this
 
                         int[] newObstCoordColRow = map.calculateCoordinates(x, y);
 
@@ -1488,8 +1489,6 @@ public class MainActivity extends AppCompatActivity {
                         // Old and new coordinates are the same
                         // There might be errors here due to new obstacle number
                         if (latestObstacleCoordinates.get(obstacleNumber) != null && latestObstacleCoordinates.get(obstacleNumber)[0] == newObstacleCoord[0] && latestObstacleCoordinates.get(obstacleNumber)[1] == newObstacleCoord[1]) {
-                            popup.setX(newObstacleCoord[0]-125);
-                            popup.setY(newObstacleCoord[1]+100);
                             clickedObstacleNumber = obstacleNumber;
                             popup.bringToFront();
                             editText.setText(String.valueOf(obstacleNumber));
@@ -1512,7 +1511,7 @@ public class MainActivity extends AppCompatActivity {
                         curObstacleGrp.setX(newObstacleCoord[0]); //+ map.getX()); // SHOULD BE INBUILT!!
                         curObstacleGrp.setY(newObstacleCoord[1]); // + map.getY());
                         curObstacleGrp.setVisibility(View.VISIBLE);
-                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
                         map.invalidate();
                         break;
                     default:
@@ -1549,7 +1548,7 @@ public class MainActivity extends AppCompatActivity {
                         if (map.obstacleInMap(obstacleNumber)) {
                             parentView.removeView(curObstacleGrp);
                             map.removeObstacle(obstacleNumber);
-                            map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+                            map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
                             map.invalidate();
                         } else {
                             curObstacleGrp.setX(originalObstacleCoordinates2[0]);
@@ -1594,10 +1593,11 @@ public class MainActivity extends AppCompatActivity {
             parentView.removeView(obstacleViewGroup);
         }
         map.removeAllObstacles();
-        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView);
+        map.generateObstacleInformationTableRows(obstacleInformationTable, obstacleViews, parentView, outputNotifView, latestObstacleCoordinates);
         obstacleViews.clear();
         map.setMapAsUnexplored();
         map.invalidate();
+        createNewObstacle(1);
     }
 
     /** RUNS EVERYTIME robot moves!!

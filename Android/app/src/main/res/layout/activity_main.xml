@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:text="@string/obstacle_coordinates"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textSize="15sp"
             app:fontFamily="monospace"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -292,6 +292,7 @@
                 android:backgroundTint="@color/red"
                 android:fontFamily="monospace"
                 android:text="Save"
+                android:textSize="12dp"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -656,6 +657,17 @@
                     android:gravity="center"
                     android:padding="5dip"
                     android:text="X"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp"
+                    app:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_height="23dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:padding="5dip"
+                    android:text="Save"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     app:fontFamily="monospace" />
