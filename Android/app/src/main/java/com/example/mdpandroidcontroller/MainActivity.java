@@ -388,7 +388,6 @@ public class MainActivity extends AppCompatActivity {
         //TEXTVIEWS
         outputNotifView = (TextView) findViewById(R.id.notifications);
         locationNotifView = (TextView) findViewById(R.id.robot_location);
-        facingNotifView = (TextView) findViewById(R.id.robot_facing);
 
         popup = (ConstraintLayout) findViewById(R.id.popup_window);
         popup.setVisibility(View.INVISIBLE);
@@ -1397,7 +1396,7 @@ public class MainActivity extends AppCompatActivity {
                         int[] obstacleCoordinates = map.calculateObstacleCoordinatesOnMap(xCoordinate, yCoordinate);
                         String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]-1, 19-obstacleCoordinates[1]);
                         obstacleCoordinatesTextView.setX(xCoordinate);
-                        obstacleCoordinatesTextView.setY(yCoordinate + 52);
+                        obstacleCoordinatesTextView.setY(yCoordinate - 72);
                         obstacleCoordinatesTextView.setText(coordinatesNotification);
                         // Highlight the cell on the chess board where the piece is being dragged over
                         map.highlightCell(obstacleCoordinates[0], obstacleCoordinates[1]);
@@ -1593,11 +1592,8 @@ public class MainActivity extends AppCompatActivity {
         robot.setRotation(rotation);
 
         //Setting displays
-        locationNotif = String.format("X: %d, Y: %d\n", robotImageCoord[0], robotImageCoord[1]);
+        locationNotif = String.format("X: %d, Y: %d, Facing: %s\n", robotImageCoord[0], robotImageCoord[1], map.convertRotationToFacing(rotation));
         locationNotifView.setText(locationNotif);
-
-        facingNotif = String.format("%s\n", map.convertRotationToFacing(rotation));
-        facingNotifView.setText(facingNotif);
     }
 
 
@@ -1707,9 +1703,9 @@ public class MainActivity extends AppCompatActivity {
         newObstacleNumber.setTag(String.format("Obstacle %d text view", obstacleNumber));
         newObstacleNumber.setText(Integer.toString(obstacleNumber));
         newObstacleNumber.setTextColor(Color.WHITE);
-        Typeface mainFont = ResourcesCompat.getFont(this, R.font.main_font);
+        Typeface mainFont = Typeface.MONOSPACE;
         newObstacleNumber.setTypeface(mainFont);
-        newObstacleNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+        newObstacleNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         newObstacleNumber.setGravity(Gravity.CENTER_HORIZONTAL);
         ConstraintLayout.LayoutParams idParams = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,
@@ -1742,8 +1738,8 @@ public class MainActivity extends AppCompatActivity {
         fullScreen.addView(newObstacleGroup);
         constraintSet.clone(fullScreen);
         constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.START, R.id.generator, ConstraintSet.START);
-        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.END, R.id.generator, ConstraintSet.END);
-        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.TOP, R.id.mapView, ConstraintSet.BOTTOM);
+        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.END, R.id.generator, ConstraintSet.END, 130);
+        constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.TOP, R.id.mapView, ConstraintSet.BOTTOM, 10);
         constraintSet.connect(newObstacleGroup.getId(), ConstraintSet.BOTTOM, R.id.generator, ConstraintSet.TOP);
         // Apply the constraints to the parent ConstraintLayout
         constraintSet.applyTo(fullScreen);
