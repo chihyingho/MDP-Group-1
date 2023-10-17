@@ -103,3 +103,330 @@
         xmin        ymin        xmax        ymax  confidence  class name
 0  262.60437  282.912476  300.307343  326.452118    0.863379     19   30
 [ImageRec] [PC] Image 8 recognized: 30
+
+---
+
+        xmin        ymin        xmax       ymax  confidence  class name
+0  243.084747  295.584106  284.946228  354.46524    0.851496     14   25
+[ImageRec] [PC] Image 1 recognized: 25
+         xmin        ymin        xmax        ymax  confidence  class name
+0  272.315582  296.621399  318.327118  356.815430    0.911010     11   22
+1  370.288910    0.085882  460.000000   58.656223    0.304212     27   38
+[ImageRec] [PC] Image 2 recognized: 22
+         xmin        ymin        xmax        ymax  confidence  class name
+0  342.805878  272.266754  418.675934  362.031097    0.942971     15   26
+1  108.865585  318.186707  128.267120  342.961639    0.348556     10   21
+[ImageRec] [PC] Image 3 recognized: 26
+         xmin        ymin        xmax        ymax  confidence  class name
+0  263.546112  285.877838  323.843842  362.390533    0.886703     10   21
+[ImageRec] [PC] Image 4 recognized: 21
+        xmin        ymin        xmax        ymax  confidence  class name
+0  133.99292  299.873535  172.014725  355.223877    0.930366     13   24
+[ImageRec] [PC] Image 5 recognized: 24
+         xmin        ymin        xmax        ymax  confidence  class name
+0  151.858688  291.678833  189.089157  347.911621    0.928357      7   18
+[ImageRec] [PC] Image 6 recognized: 18
+
+
+---
+
+[ImageRec] [PC] Tkinter ready
+        xmin        ymin        xmax        ymax  confidence  class name
+0  91.844872  296.135529  155.960129  365.738281     0.93676     22   33
+[ImageRec] [PC] Image 1 recognized: 33
+         xmin       ymin        xmax        ymax  confidence  class name
+0  163.194351  294.06485  219.768295  357.987976      0.9475     24   35
+[ImageRec] [PC] Image 2 recognized: 35
+        xmin        ymin        xmax        ymax  confidence  class name
+0  383.72876  313.177551  396.044525  337.897461    0.654751     23   34
+[ImageRec] [PC] No object detected!
+         xmin        ymin        xmax        ymax  confidence  class name
+0  418.468353  308.507721  433.780151  337.881927    0.277181     23   34
+[ImageRec] [PC] No object detected!
+         xmin        ymin       xmax        ymax  confidence  class name
+0  425.408905  312.963165  457.13623  346.826538    0.874416     29   40
+[ImageRec] [PC] Image 5 recognized: 40
+         xmin        ymin   xmax        ymax  confidence  class name
+0  442.975739  308.470581  460.0  346.837616    0.808749     29   40
+[ImageRec] [PC] Image 6 recognized: 40
+        xmin        ymin        xmax        ymax  confidence  class name
+0  125.13398  315.310577  160.080322  353.090271    0.845894     26   37
+[ImageRec] [PC] Image 7 recognized: 37
+         xmin        ymin        xmax        ymax  confidence  class name
+0  415.462677  315.369598  433.933197  341.661011     0.89092     23   34
+[ImageRec] [PC] Image 8 recognized: 34
+
+---
+
+        xmin        ymin        xmax        ymax  confidence  class name
+0  91.150238  295.354126  155.488663  364.625671    0.940713     22   33
+[ImageRec] [PC] Image 1 recognized: 33
+        xmin        ymin        xmax        ymax  confidence  class name
+0  138.92601  291.071167  200.291122  359.983734    0.946605     24   35
+[ImageRec] [PC] Image 2 recognized: 35
+         xmin        ymin        xmax        ymax  confidence  class name
+0  177.376953  294.086365  223.194962  355.034668    0.959461     23   34
+[ImageRec] [PC] Image 3 recognized: 34
+         xmin        ymin        xmax      ymax  confidence  class name
+0  185.939331  286.995819  256.070587  357.1763    0.950608     27   38
+[ImageRec] [PC] Image 4 recognized: 38
+       xmin        ymin        xmax        ymax  confidence  class name
+0  69.00248  263.564453  174.110931  368.614014    0.941311     29   40
+[ImageRec] [PC] Image 5 recognized: 40
+         xmin        ymin        xmax        ymax  confidence  class name
+0  195.571136  295.835754  256.545898  362.332672    0.897724     26   37
+[ImageRec] [PC] Image 6 recognized: 37
+         xmin        ymin   xmax        ymax  confidence  class name
+0  416.521729  276.519226  460.0  391.555023     0.85299     28   39
+[ImageRec] [PC] Image 7 recognized: 39
+         xmin        ymin        xmax       ymax  confidence  class name
+0  112.008614  288.187836  168.440247  348.66983    0.524837     25   36
+[ImageRec] [PC] No object detected!
+
+---
+Screenshot 2023-10-12 at 11.21.49 AM
+
+
+         xmin        ymin        xmax        ymax  confidence  class name
+0  233.904419  315.376617  275.965424  371.360229    0.650214     10   21
+[ImageRec] [PC] Image 1 recognized: 21
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+        xmin        ymin       xmax        ymax  confidence  class name
+0  32.720551  307.309753  94.245842  383.328918    0.808035     12   23
+[ImageRec] [PC] Image 3 recognized: 23
+         xmin        ymin        xmax        ymax  confidence  class name
+0  283.965057  321.167542  317.637543  373.796722    0.852733     13   24
+[ImageRec] [PC] Image 4 recognized: 24
+         xmin        ymin        xmax        ymax  confidence  class name
+0    0.000000  302.070862   96.150414  399.466980    0.909018     25   36
+1  450.026672  322.724518  460.000000  369.825195    0.708045      9   20
+[ImageRec] [PC] Image 5 recognized: 36
+         xmin        ymin        xmax        ymax  confidence  class name
+0  106.087852  309.581055  168.138718  382.737305    0.867335      9   20
+[ImageRec] [PC] Image 6 recognized: 20
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+
+---
+Screenshot 2023-10-12 at 12.01.07 PM.png
+
+[ImageRec] [PC] Tkinter ready
+         xmin        ymin        xmax        ymax  confidence  class name
+0  233.904419  315.376617  275.965424  371.360229    0.650214     10   21
+[ImageRec] [PC] Image 1 recognized: 21
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+        xmin        ymin       xmax        ymax  confidence  class name
+0  32.720551  307.309753  94.245842  383.328918    0.808035     12   23
+[ImageRec] [PC] Image 3 recognized: 23
+         xmin        ymin        xmax        ymax  confidence  class name
+0  283.965057  321.167542  317.637543  373.796722    0.852733     13   24
+[ImageRec] [PC] Image 4 recognized: 24
+         xmin        ymin        xmax        ymax  confidence  class name
+0    0.000000  302.070862   96.150414  399.466980    0.909018     25   36
+1  450.026672  322.724518  460.000000  369.825195    0.708045      9   20
+[ImageRec] [PC] Image 5 recognized: 36
+         xmin        ymin        xmax        ymax  confidence  class name
+0  106.087852  309.581055  168.138718  382.737305    0.867335      9   20
+[ImageRec] [PC] Image 6 recognized: 20
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+Empty DataFrame
+Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+Index: []
+[ImageRec] [PC] No object detected!
+
+
+---
+Screenshot 2023-10-12 at 2.19.06 PM.png
+
+         xmin       ymin        xmax        ymax  confidence  class name
+0  184.791794  332.98584  218.780975  399.693329    0.924366      0   11
+[ImageRec] [PC] Image 1 recognized: 11
+        xmin      ymin        xmax        ymax  confidence  class name
+0  73.279549  335.0047  145.063705  431.018524    0.913927     10   21
+[ImageRec] [PC] Image 2 recognized: 21
+         xmin        ymin        xmax        ymax  confidence  class name
+0  306.424530  333.448608  374.167755  434.564514    0.951726     13   24
+1  189.571838  365.545685  199.420959  383.375000    0.885321      0   11
+[ImageRec] [PC] Image 3 recognized: 24
+         xmin        ymin        xmax        ymax  confidence  class name
+0  129.069275  319.026062  196.647629  418.299561     0.91462      8   19
+[ImageRec] [PC] Image 4 recognized: 19
+         xmin        ymin        xmax   ymax  confidence  class name
+0  320.442902  375.849518  384.036499  460.0    0.944689      1   12
+[ImageRec] [PC] Image 5 recognized: 12
+         xmin        ymin        xmax        ymax  confidence  class name
+0  114.264351  370.424286  157.348511  427.060760    0.949616      3   14
+1   26.130089  364.527069   45.763771  388.530182    0.863000     11   22
+[ImageRec] [PC] Image 6 recognized: 14
+        xmin        ymin        xmax        ymax  confidence  class name
+0  49.527573  331.566284  117.263718  419.612823    0.949536      6   17
+[ImageRec] [PC] Image 7 recognized: 17
+         xmin        ymin        xmax        ymax  confidence  class name
+0  187.054092  334.098328  236.984314  402.042999    0.911633     11   22
+[ImageRec] [PC] Image 8 recognized: 22
+
+---
+Screenshot 2023-10-12 at 2.22.57 PM.png
+
+         xmin        ymin        xmax        ymax  confidence  class name
+ 0   76.265190  326.424652  153.259872  429.300415    0.910383      6   17
+ 1  389.250061  304.212280  436.936737  375.179779    0.290690      8   19
+ [ImageRec] [PC] Image 1 recognized: 17
+          xmin        ymin   xmax        ymax  confidence  class name
+ 0  395.182861  317.966248  460.0  425.838135    0.934744      6   17
+ [ImageRec] [PC] Image 2 recognized: 17
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  327.270813  313.481598  419.305725  440.733856    0.866383     10   21
+ [ImageRec] [PC] Image 3 recognized: 21
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0   12.510317  317.589844   72.391129  428.168640    0.931015      0   11
+ 1  402.783752  310.182434  459.776093  414.513947    0.426919     11   22
+ 2  403.702362  309.369629  460.000000  415.142029    0.412103     29   40
+ [ImageRec] [PC] Image 4 recognized: 11
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0   29.476177  317.410187  114.905624  427.655945    0.919840     11   22
+ 1  444.867950  374.141357  459.716217  414.762390    0.317487      3   14
+ [ImageRec] [PC] Image 5 recognized: 22
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0    2.573359  388.911926   61.286991  460.000000    0.938526      1   12
+ 1  344.796814  317.673859  412.666504  416.539124    0.906927      8   19
+ [ImageRec] [PC] Image 6 recognized: 19
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  289.206268  327.746613  361.111755  434.896088    0.947015     13   24
+ [ImageRec] [PC] Image 7 recognized: 24
+         xmin        ymin       xmax        ymax  confidence  class name
+ 0  14.274093  342.643036  82.417587  435.778381     0.93044     13   24
+ [ImageRec] [PC] Image 8 recognized: 24
+
+ ---
+
+ [ImageRec] [PC] Tkinter ready
+         xmin        ymin        xmax        ymax  confidence  class name
+ 0  352.49942  334.901947  419.765991  434.719666    0.951588      5   16
+ [ImageRec] [PC] Image 1 recognized: 16
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  301.046844  379.062347  331.117584  426.831665    0.879599      2   13
+ [ImageRec] [PC] Image 2 recognized: 13
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0    9.925090  365.500763   53.552948  424.935913    0.936343      4   15
+ 1  311.020264  358.757721  330.492218  388.486176    0.900112      8   19
+ [ImageRec] [PC] Image 3 recognized: 15
+ Empty DataFrame
+ Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+ Index: []
+ [ImageRec] [PC] No object detected!
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0   58.977333  345.744263  133.421768  419.510101    0.898625     25   36
+ 1  342.751434  360.228851  351.819183  386.645386    0.874462      4   15
+ [ImageRec] [PC] Image 5 recognized: 36
+ Empty DataFrame
+ Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+ Index: []
+ [ImageRec] [PC] No object detected!
+          xmin       ymin        xmax        ymax  confidence  class name
+ 0  209.538345  358.94928  248.510925  401.221741    0.925896     29   40
+ [ImageRec] [PC] Image 7 recognized: 40
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  270.821411  323.050232  334.375854  394.315002    0.824758     19   30
+ [ImageRec] [PC] Image 8 recognized: 30
+
+ ----
+ Screenshot 2023-10-12 at 5.33.17 PM.png
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  108.024384  340.894379  173.709625  413.565613     0.86925     19   30
+ [ImageRec] [PC] Image 1 recognized: 30
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  350.618164  339.493469  410.895966  406.162781    0.895861     17   28
+ [ImageRec] [PC] Image 2 recognized: 28
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  140.202118  342.254822  193.876602  402.643921    0.924245     22   33
+ [ImageRec] [PC] Image 3 recognized: 33
+          xmin        ymin        xmax        ymax  confidence  class name
+ 0  249.439713  338.719055  296.684021  393.971954    0.950073     24   35
+ [ImageRec] [PC] Image 4 recognized: 35
+         xmin        ymin        xmax        ymax  confidence  class name
+ 0  93.630569  312.201843  181.098923  434.659149    0.931511     23   34
+ 1   5.347328  362.820251   30.466270  390.240051    0.777270     19   30
+ [ImageRec] [PC] Image 5 recognized: 34
+          xmin       ymin        xmax        ymax  confidence  class name
+ 0  238.275864  329.97876  297.577728  397.538055     0.87593     20   31
+ [ImageRec] [PC] Image 6 recognized: 31
+          xmin  ymin   xmax        ymax  confidence  class name
+ 0  150.632187   0.0  460.0  107.098267    0.465035     24   35
+ [ImageRec] [PC] Image 7 recognized: 35
+          xmin  ymin   xmax       ymax  confidence  class name
+ 0  146.163239   0.0  460.0  90.579826     0.43922     24   35
+ [ImageRec] [PC] Image 8 recognized: 35
+
+ ---
+ Screenshot 2023-10-12 at 7.54.22 PM.png
+          xmin        ymin        xmax        ymax  confidence  class name
+  0  247.485535  349.617554  276.338226  393.505524    0.917744     14   25
+  [ImageRec] [PC] Image 1 recognized: 25
+           xmin        ymin       xmax        ymax  confidence  class name
+  0  165.707275  285.848877  233.90657  360.800201    0.870014     19   30
+  [ImageRec] [PC] Image 2 recognized: 30
+           xmin        ymin        xmax        ymax  confidence  class name
+  0  145.264969  325.027161  184.172821  367.982056    0.403548     16   27
+  [ImageRec] [PC] Image 3 recognized: 27
+           xmin        ymin        xmax        ymax  confidence  class name
+  0  327.470825  230.737717  433.831512  337.538086    0.911121     29   40
+  [ImageRec] [PC] Image 4 recognized: 40
+          xmin        ymin        xmax        ymax  confidence  class name
+  0  64.917374  333.158386  155.828384  435.068573    0.920039     17   28
+  [ImageRec] [PC] Image 5 recognized: 28
+           xmin        ymin        xmax        ymax  confidence  class name
+  0  335.673737  313.371002  397.832031  399.421295    0.789854     10   21
+  [ImageRec] [PC] Image 6 recognized: 21
+         xmin        ymin       xmax        ymax  confidence  class name
+  0  4.095123  338.371613  65.455002  407.082825    0.768046     20   31
+  [ImageRec] [PC] Image 7 recognized: 31
+  Empty DataFrame
+  Columns: [xmin, ymin, xmax, ymax, confidence, class, name]
+  Index: []
+  [ImageRec] [PC] No object detected!
+
+  --
+  final
+
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  219.651199  350.350494  256.117554  391.819244    0.917277     16   27
+    [ImageRec] [PC] Image 1 recognized: 27
+             xmin       ymin        xmax       ymax    confidence  class name
+    0  298.184509  294.29599   366.049042   379.03949    0.901816      3   14
+    [ImageRec] [PC] Image 2 recognized: 14
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  227.328903  346.927368  272.660156  393.349213    0.914722     18   29
+    [ImageRec] [PC] Image 3 recognized: 29
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  179.053375  344.087708  211.893692  391.346985    0.915077     13   24
+    [ImageRec] [PC] Image 4 recognized: 24
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  263.908539  333.605469  323.333557  411.182892    0.953570      6   17
+    1  425.372803  351.399658  443.949677  373.514801    0.855519      9   20
+    [ImageRec] [PC] Image 5 recognized: 17
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  244.081207  334.916962  296.082123  409.261536    0.942131      1   12
+    [ImageRec] [PC] Image 6 recognized: 12
+             xmin       ymin        xmax        ymax  confidence  class name
+    0  320.438568  288.01709  403.999908   405.405182    0.930546      4   15
+    [ImageRec] [PC] Image 7 recognized: 15
+             xmin        ymin        xmax        ymax  confidence  class name
+    0  194.859512  335.693207  223.604248  377.936401    0.915649      2   13
+    [ImageRec] [PC] Image 8 recognized: 13
+

@@ -21,9 +21,10 @@ LABELS = {"11": "1", "12": "2", "13": "3", "14": "4", "15": "5",
 NO_ID_STRING = "None"
 
 
-def detect_objects(model, image):
+def detect_objects(model, image, minimum_confidence=0.4):
     """
     Returns a dataframe of probabilities after running a YOLOv5 model against an image.
+    :param minimum_confidence: Minimum
     :param model:
     :param image:
     :return: Pandas dataframe of (`xmin`, `ymin`, `xmax`, `ymax`, `confidence`, `class`, `name`)
@@ -34,10 +35,12 @@ def detect_objects(model, image):
     """
     results = model(image)
     results_df = results.pandas().xyxy[0]
+    if not results_df.empty:
+        print(results_df)
+    results_df = results_df[results_df['confidence'] > minimum_confidence]
     if results_df.empty:
         raise NoObjectDetectedException("No object detected!")
     results_df.sort_values(by=['confidence'], ascending=False, inplace=True)
-    print(results_df)
     return results_df
 
 
@@ -152,21 +155,22 @@ def are_images_equal(image1, image2):
     return is_equal
 
 
-def select_best_object(df, threshold=0.9):
+def select_best_object(df, threshold=0.8):
     """
     If there is more than one object detected, select the object with the largest bounding box above a specified
     confidence threshold.
-    :param df: Dataframe of any number of rows, headers = (xmin, ymin, xmax, ymax, confidence, class, name)
+    :param df: Dataframe of any number of rows, headers = `(xmin, ymin, xmax, ymax, confidence, class, name)`
     :param threshold:
-    :return: Subset of a df row that has the best entry
+    :return: Subset of a df row that has the best entry,
+        headers = `(xmin, ymin, xmax, ymax, confidence, class, name, area)`
     """
     if df.empty:
         raise NoObjectDetectedException("No object detected!")
-    if df.empty:
-        print("No object detected! Not annotating!")
-        image_id = NO_ID_STRING
+    df = df.sort_values(by='confidence', ascending=False)
     df['area'] = (df['xmax'] - df['xmin']) * (df['ymax'] - df['ymin'])
-    df = df[df['confidence'] > threshold]
-    df = df.sort_values(by='area', ascending=False)
-    print(df)
+    if df.shape[0] > 1:
+        # if too many rows, pick the top one
+        df_above_threshold = df[df['confidence'] > threshold]
+        if df_above_threshold.shape[0] > 1:
+            df = df_above_threshold.sort_values(by='area', ascending=False)
     return df.drop(df.index[1:]).reset_index(drop=True)
