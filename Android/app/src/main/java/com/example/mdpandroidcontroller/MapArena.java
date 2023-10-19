@@ -134,9 +134,9 @@ public class MapArena extends View { //implements Serializable
             obstacleNumberText.setText(String.valueOf(obstacleNumber));
             obstacleNumberText.setTextColor(Color.WHITE);
             obstacleNumberText.setTypeface(mainFont);
-            int textSize = 12;
+            int textSize = 15;
             obstacleNumberText.setTextSize(textSize);
-            obstacleNumberText.setPadding(30, 0, 30, 2);
+            obstacleNumberText.setPadding(20, 5, 0, 10);
             int[] obstacleCoordinates = obstacleDetails.getCoordinates();
             int xCoordinate = obstacleCoordinates[0];
             int yCoordinate = obstacleCoordinates[1];
@@ -145,22 +145,22 @@ public class MapArena extends View { //implements Serializable
             xCoordinateText.setText(String.valueOf(xCoordinate));
             xCoordinateText.setTypeface(mainFont);
             xCoordinateText.setTextSize(textSize);
-            xCoordinateText.setPadding(30, 0, 25, 2);
+            xCoordinateText.setPadding(18, 0, 0, 10);
             EditText yCoordinateText = new EditText(this.getContext());
             yCoordinateText.setText(String.valueOf(yCoordinate));
             yCoordinateText.setTextColor(Color.WHITE);
             yCoordinateText.setTextSize(textSize);
             yCoordinateText.setTypeface(mainFont);
-            yCoordinateText.setPadding(30, 0, 25, 2);
+            yCoordinateText.setPadding(35, 5, 0, 10);
             TextView faceText = new TextView(this.getContext());
             faceText.setText(getTargetFaceDisplayString(obstacleDetails.getObstacleFace()));
             faceText.setTextColor(Color.WHITE);
             faceText.setTextSize(textSize);
             faceText.setTypeface(mainFont);
-            faceText.setPadding(30, 0, 30, 2);
+            faceText.setPadding(30, 5, 0, 10);
             // Delete obstacle button
-            int desiredWidthInPixels = 14; // Replace with your desired width
-            int desiredHeightInPixels = 14; // Replace with your desired height
+            int desiredWidthInPixels = 16; // Replace with your desired width
+            int desiredHeightInPixels = 16; // Replace with your desired height
             ImageButton deleteObstacleButton = new ImageButton(this.getContext());
             deleteObstacleButton.setBackgroundColor(Color.BLACK);
             Drawable originalDrawable = getResources().getDrawable(R.drawable.delete_button);
@@ -168,6 +168,7 @@ public class MapArena extends View { //implements Serializable
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, desiredWidthInPixels, desiredHeightInPixels, true);
             Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
             deleteObstacleButton.setImageDrawable(scaledDrawable);
+            deleteObstacleButton.setPadding(30, 5, 0, 10);
             // Save obstacle co-ordinates
             ImageButton saveCoordinatesButton = new ImageButton(this.getContext());
             saveCoordinatesButton.setBackgroundColor(Color.BLACK);
@@ -176,6 +177,7 @@ public class MapArena extends View { //implements Serializable
             Bitmap scaledSaveIconBitmap = Bitmap.createScaledBitmap(saveIconBitmap, desiredWidthInPixels, desiredHeightInPixels, true);
             Drawable scaledSaveIconDrawable = new BitmapDrawable(getResources(), scaledSaveIconBitmap);
             saveCoordinatesButton.setImageDrawable(scaledSaveIconDrawable);
+            saveCoordinatesButton.setPadding(35, 5, 0, 10);
             deleteObstacleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
