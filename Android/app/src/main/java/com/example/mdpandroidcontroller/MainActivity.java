@@ -1402,18 +1402,26 @@ public class MainActivity extends AppCompatActivity {
                         currentObstacleGrp.setVisibility(View.GONE);
                         break;
                     case DragEvent.ACTION_DRAG_LOCATION:
-                        map.unhighlightCell(latestHighlightedCellCoordinates[0], latestHighlightedCellCoordinates[1]);
+                        for (int x = 0; x <= latestHighlightedCellCoordinates[0]; x++) {
+                            map.unhighlightCell(x, latestHighlightedCellCoordinates[1]);
+                        }
+                        for (int y = 19; y >= latestHighlightedCellCoordinates[1]; y--) {
+                            map.unhighlightCell(latestHighlightedCellCoordinates[0], y);
+                        }
                         map.invalidate();
                         int xCoordinate = (int) dragEvent.getX();
                         int yCoordinate = (int) dragEvent.getY();
-                        System.out.println(String.format("dragged into map: x: %d, y: %d", xCoordinate, yCoordinate));
                         int[] obstacleCoordinates = map.calculateObstacleCoordinatesOnMap(xCoordinate, yCoordinate);
                         String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]-1, 19-obstacleCoordinates[1]);
                         obstacleCoordinatesTextView.setX(xCoordinate);
                         obstacleCoordinatesTextView.setY(yCoordinate - 72);
                         obstacleCoordinatesTextView.setText(coordinatesNotification);
-                        // Highlight the cell on the chess board where the piece is being dragged over
-                        map.highlightCell(obstacleCoordinates[0], obstacleCoordinates[1]);
+                        for (int x = 0; x <= obstacleCoordinates[0]; x++) {
+                            map.highlightCell(x, obstacleCoordinates[1]);
+                        }
+                        for (int y = 19; y >= obstacleCoordinates[1]; y--) {
+                            map.highlightCell(obstacleCoordinates[0], y);
+                        }
                         latestHighlightedCellCoordinates = new int[]{obstacleCoordinates[0], obstacleCoordinates[1]};
                         map.invalidate();
                         break;
@@ -1428,15 +1436,24 @@ public class MainActivity extends AppCompatActivity {
                         obstacleCoordinatesTextView.setVisibility(View.INVISIBLE);
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
-                        map.unhighlightCell(latestHighlightedCellCoordinates[0], latestHighlightedCellCoordinates[1]);
+                        for (int x = 0; x <= latestHighlightedCellCoordinates[0]; x++) {
+                            map.unhighlightCell(x, latestHighlightedCellCoordinates[1]);
+                        }
+                        for (int y = 19; y >= latestHighlightedCellCoordinates[1]; y--) {
+                            map.unhighlightCell(latestHighlightedCellCoordinates[0], y);
+                        }
                         map.invalidate();
                         break;
                     case DragEvent.ACTION_DROP:
-                        map.unhighlightCell(latestHighlightedCellCoordinates[0], latestHighlightedCellCoordinates[1]);
+                        for (int x = 0; x <= latestHighlightedCellCoordinates[0]; x++) {
+                            map.unhighlightCell(x, latestHighlightedCellCoordinates[1]);
+                        }
+                        for (int y = 19; y >= latestHighlightedCellCoordinates[1]; y--) {
+                            map.unhighlightCell(latestHighlightedCellCoordinates[0], y);
+                        }
                         ConstraintLayout curObstacleGrp = (ConstraintLayout) dragEvent.getLocalState();
                         int x = (int) dragEvent.getX();
                         int y = (int) dragEvent.getY();
-                        System.out.println("Obstacle has been released");
                         // Get obstacle number
                         Object tag = curObstacleGrp.getTag();
                         int obstacleNumber = -1;
@@ -1470,7 +1487,6 @@ public class MainActivity extends AppCompatActivity {
 
                         int[] newObstCoordColRow = map.calculateCoordinates(x, y);
 
-                        System.out.println("Notification values:");
                         int col = newObstCoordColRow[2];
                         int row = newObstCoordColRow[3];
                         outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", obstacleNumber, col, row);
@@ -1479,12 +1495,8 @@ public class MainActivity extends AppCompatActivity {
                         //others
                         // raw column * cell size, raw row * cell size
                         int[] newObstacleCoord = {newObstCoordColRow[0], newObstCoordColRow[1]};
-                        System.out.println("Updating new obstacle coord");
-                        System.out.println(String.format("newObstacleCoord x: %d y: %d", newObstacleCoord[0], newObstacleCoord[1]));
                         newObstacleCoord[0] = newObstacleCoord[0] + (int) (map.getX());  // NEW 6 feb
                         newObstacleCoord[1] = newObstacleCoord[1] + (int) (map.getY());
-                        System.out.println(String.format("newObstacleCoord x: %d y: %d", newObstacleCoord[0], newObstacleCoord[1]));
-
                         //WHEN U JUST CLICK IT ONLY - releases the popupwindow
                         // Old and new coordinates are the same
                         // There might be errors here due to new obstacle number
