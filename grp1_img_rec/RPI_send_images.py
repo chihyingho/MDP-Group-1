@@ -21,7 +21,7 @@ sender = imagezmq.ImageSender(connect_to='tcp://192.168.1.12:5555')
 picam = VideoStream(usePiCamera=True).start()
 
 time.sleep(2.0)  # allow camera sensor to warm up
-for i in range(16):  # send images as stream until Ctrl-C
+for i in range(16):
     image = picam.read()
     reply = sender.send_image("Image from RPi", image)
     print(reply)

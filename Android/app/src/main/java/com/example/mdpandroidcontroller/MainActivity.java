@@ -69,6 +69,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
@@ -119,6 +120,42 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> paireddevicelist = new ArrayList<>();
     ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
     ArrayList<BluetoothDevice> mPairDevices = new ArrayList<>();
+
+    /*public static Map<String, String> obstacleIDs;
+    static {
+        obstacleIDs = new HashMap<>();
+        obstacleIDs.put("11", "1");
+        obstacleIDs.put("12", "2");
+        obstacleIDs.put("13", "3");
+        obstacleIDs.put("14", "4");
+        obstacleIDs.put("15", "5");
+        obstacleIDs.put("16", "6");
+        obstacleIDs.put("17", "7");
+        obstacleIDs.put("18", "8");
+        obstacleIDs.put("19", "9");
+        obstacleIDs.put("20", "A");
+        obstacleIDs.put("21", "B");
+        obstacleIDs.put("22", "C");
+        obstacleIDs.put("23", "D");
+        obstacleIDs.put("24", "E");
+        obstacleIDs.put("25", "F");
+        obstacleIDs.put("26", "G");
+        obstacleIDs.put("27", "H");
+        obstacleIDs.put("28", "S");
+        obstacleIDs.put("29", "T");
+        obstacleIDs.put("30", "U");
+        obstacleIDs.put("31", "V");
+        obstacleIDs.put("32", "W");
+        obstacleIDs.put("33", "X");
+        obstacleIDs.put("34", "Y");
+        obstacleIDs.put("35", "Z");
+        obstacleIDs.put("36", "^");
+        obstacleIDs.put("37", "\/");
+        obstacleIDs.put("38", "->");
+        obstacleIDs.put("39", "<-");
+        obstacleIDs.put("40", "");
+    }*/
+
 
     private static final String TAG = "btlog";
 
@@ -380,10 +417,10 @@ public class MainActivity extends AppCompatActivity {
                     // Notification
                     outputNotif = String.format("Obstacle: %d, Col: %d, Row: %d", newObstacleNumber, xMapCoordinate, yMapCoordinate);
                     outputNotifView.setText(outputNotif);
-                    if (Constants.connected) {
+                    /*if (Constants.connected) {
                         byte[] bytes = outputNotif.getBytes(Charset.defaultCharset());
                         BluetoothChat.writeMsg(bytes);
-                    }
+                    }*/
                     yMapCoordinate += 2;
                     // Check that popup still opens (if branch)
                 }
@@ -1070,14 +1107,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int[][] obstacleData = map.getObstacleData();
+                Log.d("MainActivity:", "Attempting to send map data");
+                StringBuilder data = new StringBuilder("" + obstacleData[0][0] + "," + obstacleData[0][1] + "," + obstacleData[0][2] + "," + obstacleData[0][3]);
+                for (int i = 1; i < obstacleData.length; i++) {
+                    data.append("|").append(obstacleData[i][0]).append(",").append(obstacleData[i][1]).append(",").append(obstacleData[i][2]).append(",").append(obstacleData[i][3]);
+                }
+                data.append(";");
                 if (obstacleData != null && Constants.connected) {
-                    StringBuilder data = new StringBuilder("" + obstacleData[0][0] + "," + obstacleData[0][1] + "," + obstacleData[0][2] + "," + obstacleData[0][3]);
-                    for (int i = 1; i < obstacleData.length; i++) {
-                        data.append("|").append(obstacleData[i][0]).append(",").append(obstacleData[i][1]).append(",").append(obstacleData[i][2]).append(",").append(obstacleData[i][3]);
-                    }
+                    System.out.println(data);
                     byte[] bytes = data.toString().getBytes(Charset.defaultCharset());
                     BluetoothChat.writeMsg(bytes);
-                    Log.d("MainActivity", "Map Data sent");
+                    outputNotifView.setText("Map Data Sent");
+                    Log.d("MainActivity", "Map Data sent: " + data.toString());
+                }
+                else if (obstacleData != null) {
+                    Log.d("MainActivity", "BT not connected");
+                    Log.d("MainActivity", "Simulated Map Data sent: " + data.toString());
                 }
             }
         });
@@ -1414,7 +1459,7 @@ public class MainActivity extends AppCompatActivity {
                         int[] obstacleCoordinates = map.calculateObstacleCoordinatesOnMap(xCoordinate, yCoordinate);
                         String coordinatesNotification = String.format("Col: %d | Row: %d", obstacleCoordinates[0]-1, 19-obstacleCoordinates[1]);
                         obstacleCoordinatesTextView.setX(xCoordinate);
-                        obstacleCoordinatesTextView.setY(yCoordinate - 72);
+                        obstacleCoordinatesTextView.setY(yCoordinate - 80);
                         obstacleCoordinatesTextView.setText(coordinatesNotification);
                         for (int x = 0; x <= obstacleCoordinates[0]; x++) {
                             map.highlightCell(x, obstacleCoordinates[1]);
@@ -1645,25 +1690,31 @@ public class MainActivity extends AppCompatActivity {
         String formattedInstruction = instruction.replaceAll("\\s", "");
         List<String> instructionList = Arrays.asList(formattedInstruction.split(","));
 
-        System.out.println(formattedInstruction);
-        System.out.println(instructionList.get(0));
+        Log.d("executeInstruction", formattedInstruction);
+        System.out.println(instructionList);
         //CLEANING
         String prefix = instructionList.get(0);
         prefix = prefix.toUpperCase();
 
         //FOR STATUS
-        if (prefix.equals("android-STATUS")) {
+        if (prefix.equals("STATUS")) {
             // assuming max 1 comma
             String display = "STATUS: ";
             display = display + instructionList.get(1);
             outputNotifView.setText(display);
-        } else if (prefix.equals("android-TARGET")) {
+        } else if (prefix.equals("TARGET")) {
             int obstacleNumber = Integer.parseInt(instructionList.get(1));
             String targetID = instructionList.get(2);
-            TextView targetTextView = obstacleTextViews.get(obstacleNumber);
-            targetTextView.setText(targetID);
-            targetTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-        } else if (prefix.equals("android-ROBOT")) {
+            if (Objects.equals(targetID, "Noobjectdetected!")) {
+                targetID = "-";
+            }
+            if (obstacleNumber != 0) {
+                TextView targetTextView = obstacleTextViews.get(obstacleNumber);
+                targetTextView.setText(targetID);
+                targetTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                outputNotifView.setText(instruction);
+            }
+        } else if (prefix.equals("ROBOT")) {
             //SET A MAX AND MIN!!! -- 8 feb
             int col = parseInt(instructionList.get(1));
             int row = parseInt(instructionList.get(2));
